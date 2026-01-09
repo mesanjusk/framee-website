@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Premium invitation card placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f6f0f4" />
+      <stop offset="100%" stop-color="#a59fb5" />
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.6)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#bg)" />
+  <rect x="90" y="90" width="1020" height="720" rx="36" fill="rgba(255,255,255,0.55)" stroke="rgba(120,90,70,0.12)" stroke-width="2" />
+  <line x1="140" y1="210" x2="1060" y2="210" stroke="url(#line)" stroke-width="6" />
+  <line x1="140" y1="290" x2="880" y2="290" stroke="url(#line)" stroke-width="6" />
+  <line x1="140" y1="370" x2="960" y2="370" stroke="url(#line)" stroke-width="6" />
+  <circle cx="960" cy="620" r="120" fill="rgba(255,255,255,0.45)" />
+  <circle cx="960" cy="620" r="90" fill="rgba(255,255,255,0.35)" />
+</svg>

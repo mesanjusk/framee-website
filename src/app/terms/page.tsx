@@ -1,39 +1,62 @@
+import type { Metadata } from "next";
 import { BUSINESS } from "../../config/business";
+import { Container } from "../../components/Container";
+import { Section } from "../../components/Section";
+import { Card } from "../../components/Card";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions",
+  description: "Read the terms for Sanjusk Cards invitation design, printing, and communication policies.",
+  openGraph: {
+    title: "Sanjusk Cards | Terms & Conditions",
+    description: "Read the terms for invitation design, printing, and communications.",
+  },
+};
 
 export default function Page() {
   return (
-    <div style={{ paddingTop: 20, paddingBottom: 20 }}>
-      <h1>Terms & Conditions</h1>
-      <p style={{ color: "#374151", maxWidth: "90ch" }}>
-        These terms govern your use of {BUSINESS.name}'s services. Replace placeholders based on your real policies.
-      </p>
+    <div>
+      <Section>
+        <Container>
+          <span className="sectionKicker">Terms & Conditions</span>
+          <h1 className="sectionTitle">Clear expectations for every premium order.</h1>
+          <p className="muted" style={{ maxWidth: "75ch" }}>
+            These terms govern your use of {BUSINESS.name}'s services. Please review before confirming a
+            custom order.
+          </p>
 
-      <div className="card" style={{ marginTop: 16 }}>
-        <h3 style={{ marginTop: 0 }}>Service</h3>
-        <p style={{ color: "#374151" }}>
-          We provide invitation card design, printing, and related stationery services as described on this website. Timelines depend on requirements and availability.
-        </p>
+          <Card style={{ marginTop: 24 }}>
+            <h3 className="cardTitle">Service</h3>
+            <p className="muted">
+              We provide invitation card design, printing, and related stationery services as described
+              on this website. Timelines depend on requirements and availability.
+            </p>
 
-        <h3>Pricing & Payment</h3>
-        <p style={{ color: "#374151" }}>
-          Pricing is shared before confirmation. Payments (if applicable) are accepted via approved channels shared by our team.
-        </p>
+            <h3 className="cardTitle">Pricing & Payment</h3>
+            <p className="muted">
+              Pricing is shared before confirmation. Payments are accepted via approved channels shared
+              by our team.
+            </p>
 
-        <h3>Refunds & Cancellations</h3>
-        <p style={{ color: "#374151" }}>
-          Custom work may have limited cancellation/refund depending on progress. We will communicate clearly before starting work.
-        </p>
+            <h3 className="cardTitle">Refunds & Cancellations</h3>
+            <p className="muted">
+              Custom work may have limited cancellation or refund options depending on production
+              progress. We will communicate clearly before starting work.
+            </p>
 
-        <h3>Communication</h3>
-        <p style={{ color: "#374151" }}>
-          If you contact us on WhatsApp, you agree to receive service-related messages such as updates and support replies.
-        </p>
+            <h3 className="cardTitle">Communication</h3>
+            <p className="muted">
+              If you contact us on WhatsApp, you agree to receive service-related messages such as
+              updates and support replies.
+            </p>
 
-        <h3>Contact</h3>
-        <p style={{ color: "#374151", marginBottom: 0 }}>
-          Questions? Email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.
-        </p>
-      </div>
+            <h3 className="cardTitle">Contact</h3>
+            <p className="muted" style={{ marginBottom: 0 }}>
+              Questions? Email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.
+            </p>
+          </Card>
+        </Container>
+      </Section>
     </div>
   );
 }

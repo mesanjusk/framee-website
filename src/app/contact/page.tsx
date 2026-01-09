@@ -1,37 +1,58 @@
+import type { Metadata } from "next";
 import { BUSINESS } from "../../config/business";
+import { Container } from "../../components/Container";
+import { Section } from "../../components/Section";
+import { Card } from "../../components/Card";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Contact Sanjusk Cards for boutique invitation card design, quotes, and consultation in Gondia, Maharashtra.",
+  openGraph: {
+    title: "Sanjusk Cards | Contact",
+    description: "Reach out for premium invitation card design, quotes, and consultations.",
+  },
+};
 
 export default function Page() {
   return (
-    <div style={{ paddingTop: 20, paddingBottom: 10 }}>
-      <h1>Contact</h1>
-      <p className="muted" style={{ maxWidth: "80ch" }}>
-        For quotes, share event name, date, quantity, size, preferred theme, and finish (foil/emboss/laser-cut etc.).
-      </p>
+    <div>
+      <Section>
+        <Container>
+          <span className="sectionKicker">Contact</span>
+          <h1 className="sectionTitle">Let us craft your invitation story.</h1>
+          <p className="muted" style={{ maxWidth: "75ch" }}>
+            Reach out for pricing, timelines, and personalized guidance. We respond quickly on WhatsApp
+            and phone.
+          </p>
 
-      <div className="grid cols-2" style={{ marginTop: 18 }}>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Support</h3>
-          <div className="muted"><b>Email:</b> <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></div>
-          <div className="muted" style={{ marginTop: 8 }}><b>Phone:</b> <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a></div>
-          {BUSINESS.whatsapp ? (
-            <div className="muted" style={{ marginTop: 8 }}><b>WhatsApp:</b> <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">Chat on WhatsApp</a></div>
-          ) : null}
-          <div className="muted" style={{ marginTop: 8 }}><b>Address:</b> {BUSINESS.address}</div>
-          <div className="muted" style={{ marginTop: 8 }}><b>Hours:</b> {BUSINESS.hours}</div>
-        </div>
+          <div className="grid cols-2" style={{ marginTop: 28 }}>
+            <Card>
+              <h3 className="cardTitle">Studio details</h3>
+              <p className="muted"><strong>Email:</strong> <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></p>
+              <p className="muted"><strong>Phone:</strong> <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a></p>
+              {BUSINESS.whatsapp ? (
+                <p className="muted">
+                  <strong>WhatsApp:</strong> <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+                </p>
+              ) : null}
+              <p className="muted"><strong>Address:</strong> {BUSINESS.address}</p>
+              <p className="muted"><strong>Hours:</strong> {BUSINESS.hours}</p>
+            </Card>
 
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Quick checklist for quote</h3>
-          <ul className="list" style={{ marginBottom: 0 }}>
-            <li>Event type + date</li>
-            <li>Quantity required</li>
-            <li>Card size (if known)</li>
-            <li>Theme reference / color preference</li>
-            <li>Finish preference (foil/emboss/texture/laser-cut)</li>
-            <li>Delivery timeline & location</li>
-          </ul>
-        </div>
-      </div>
+            <Card>
+              <h3 className="cardTitle">Quick checklist</h3>
+              <ul className="list" style={{ marginBottom: 0 }}>
+                <li>Event type and date</li>
+                <li>Quantity required</li>
+                <li>Preferred size or format</li>
+                <li>Theme references or color palette</li>
+                <li>Finish preferences (foil, emboss, laser-cut)</li>
+                <li>Delivery timeline & city</li>
+              </ul>
+            </Card>
+          </div>
+        </Container>
+      </Section>
     </div>
   );
 }

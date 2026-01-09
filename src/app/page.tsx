@@ -1,99 +1,214 @@
+import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { BUSINESS } from "../config/business";
+import { Section } from "../components/Section";
+import { Container } from "../components/Container";
+import { Card } from "../components/Card";
+
+export const metadata: Metadata = {
+  title: "Luxury Invitation Cards",
+  description:
+    "Premium boutique invitation cards for weddings, engagements, birthdays, and every celebration. Custom finishes, handcrafted details, and designer guidance.",
+  openGraph: {
+    title: "Sanjusk Cards | Luxury Invitation Cards",
+    description:
+      "Premium boutique invitation cards for weddings, engagements, birthdays, and every celebration.",
+  },
+};
 
 const highlights = [
-  { title: "Wedding Invitations", desc: "Luxury wedding suites—save the date, invites, RSVP, inserts, envelopes." },
-  { title: "Engagement & Ring Ceremony", desc: "Modern, floral, minimal, royal, and theme-based designs." },
-  { title: "Birthday & Kids Events", desc: "Cute, colorful, cartoon themes with premium finishes." },
-  { title: "Baby Shower & Naming", desc: "Soft pastels, traditional motifs, and custom typography." },
-  { title: "Anniversary & Housewarming", desc: "Elegant designs with personalized details." },
-  { title: "Corporate & Launch Events", desc: "Professional invitations, passes, and event stationery." },
+  {
+    title: "Bespoke Wedding Suites",
+    description: "Signature sets with RSVP, inserts, envelopes, and custom packaging.",
+  },
+  {
+    title: "Engagement & Ring Ceremonies",
+    description: "Modern typography, floral compositions, and royal themes.",
+  },
+  {
+    title: "Boutique Celebrations",
+    description: "Birthdays, baby showers, housewarmings, and milestone events.",
+  },
+];
+
+const finishes = [
+  "Foil stamping (gold, rose-gold, silver)",
+  "Emboss + deboss textures",
+  "Laser-cut details and pocket folds",
+  "Acrylic, handmade, and textured papers",
+  "Wax seal closures and ribbon accents",
+  "Custom envelopes and belly bands",
+];
+
+const steps = [
+  {
+    title: "Share your vision",
+    description: "Tell us your event details, inspirations, quantities, and budget range.",
+  },
+  {
+    title: "Design & approval",
+    description: "We craft premium concepts, refine typography, and confirm finishes.",
+  },
+  {
+    title: "Print & delivery",
+    description: "After approval we produce, pack, and coordinate delivery/pickup.",
+  },
+];
+
+const reasons = [
+  {
+    title: "Boutique aesthetics",
+    description: "Curated palettes, layered textures, and elegant typography.",
+  },
+  {
+    title: "Guided personalization",
+    description: "We translate your theme into a cohesive stationery suite.",
+  },
+  {
+    title: "Premium finishing",
+    description: "Hand-finished details, fine papers, and luxe packaging.",
+  },
+  {
+    title: "Clear timelines",
+    description: "Transparent pricing, design approvals, and delivery updates.",
+  },
 ];
 
 export default function Page() {
   return (
     <div>
-      <section className="hero">
-        <div className="badge">Boutique Designer Cards • Premium Printing • Custom Themes</div>
-        <h1>
-          <span className="kicker">Designer boutique</span> invitation cards for every event.
-        </h1>
-        <p>
-          {BUSINESS.description} Explore collections, share your theme, and we will create a premium invite that matches your vibe.
-        </p>
+      <Container>
+        <section className="hero">
+          <div className="heroContent">
+            <span className="badge">Boutique invitation studio · Gondia</span>
+            <h1>Premium invitation cards crafted for unforgettable celebrations.</h1>
+            <p>
+              {BUSINESS.description} Discover curated collections, premium finishes, and a seamless
+              design-to-print experience.
+            </p>
+            <div className="stack">
+              <Link className="button" href="/quote">
+                Request a Quote
+              </Link>
+              <Link className="button secondary" href="/gallery">
+                View Gallery
+              </Link>
+              {BUSINESS.whatsapp ? (
+                <a className="button secondary" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
+                  WhatsApp Us
+                </a>
+              ) : null}
+            </div>
+          </div>
 
-        <div className="hstack" style={{ marginTop: 16 }}>
-          <Link className="btn" href="/gallery">View Gallery</Link>
-          <Link className="btn secondary" href="/contact">Get Quote</Link>
-          {BUSINESS.whatsapp ? (
-            <a className="btn secondary" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
-              WhatsApp Us
-            </a>
-          ) : null}
-        </div>
-      </section>
+          <div className="heroCard">
+            <div className="heroHighlight">Signature Wedding Suite</div>
+            <p className="muted">
+              Layered inserts, velvet ribbons, and luxe foil details tailored to your love story.
+            </p>
+            <Image
+              src="/gallery/wedding-01.svg"
+              alt="Premium wedding invitation suite"
+              width={520}
+              height={420}
+              style={{ borderRadius: 18, marginTop: 16 }}
+              priority
+            />
+          </div>
+        </section>
+      </Container>
 
-      <section className="grid cols-3" style={{ marginTop: 10 }}>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Our Specialty</h3>
-          <p className="muted" style={{ marginBottom: 0 }}>
-            Boutique designs with premium finishes—foil, emboss, texture, acrylic, laser-cut, and custom packaging (as per requirement).
-          </p>
-        </div>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Fast Design Approval</h3>
-          <p className="muted" style={{ marginBottom: 0 }}>
-            We share drafts for approval, then proceed to printing. Clear timelines and transparent pricing.
-          </p>
-        </div>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Local + Online</h3>
-          <p className="muted" style={{ marginBottom: 0 }}>
-            Serving Gondia and beyond. Pickup/delivery options available depending on location.
-          </p>
-        </div>
-      </section>
-
-      <section style={{ marginTop: 18 }}>
-        <div className="card">
-          <h2 style={{ marginTop: 0 }}>Collections</h2>
-          <p className="muted" style={{ marginTop: 6 }}>
-            Popular categories we design for. If you have a custom theme, we can create a new design from scratch.
-          </p>
-
-          <div className="grid cols-3" style={{ marginTop: 14 }}>
-            {highlights.map((h) => (
-              <div key={h.title} className="tile">
-                <div className="tileTop" />
-                <div className="tileBody">
-                  <div className="tileTitle">{h.title}</div>
-                  <p className="tileDesc">{h.desc}</p>
-                </div>
-              </div>
+      <Section>
+        <Container>
+          <div className="grid cols-3">
+            {highlights.map((item) => (
+              <Card key={item.title}>
+                <h3 className="cardTitle">{item.title}</h3>
+                <p className="muted">{item.description}</p>
+              </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      <section className="grid cols-2" style={{ marginTop: 18 }}>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>How ordering works</h3>
-          <ol className="list">
-            <li>Share event details (date, venue, names, theme reference).</li>
-            <li>We share design options & finalize size/material.</li>
-            <li>Approval → printing → packing → pickup/delivery.</li>
-          </ol>
-        </div>
+      <Section>
+        <Container>
+          <div className="grid cols-2">
+            <div>
+              <span className="sectionKicker">Finishes & Materials</span>
+              <h2 className="sectionTitle">Luxurious textures and handcrafted details.</h2>
+              <p className="muted">
+                Choose from premium stocks and finishing techniques to elevate your invitation suite.
+              </p>
+            </div>
+            <Card>
+              <ul className="list" style={{ margin: 0 }}>
+                {finishes.map((finish) => (
+                  <li key={finish}>{finish}</li>
+                ))}
+              </ul>
+              <div className="stack" style={{ marginTop: 20 }}>
+                <Link className="button" href="/finishes">
+                  Explore Finishes
+                </Link>
+              </div>
+            </Card>
+          </div>
+        </Container>
+      </Section>
 
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>For Meta/WhatsApp review</h3>
-          <ul className="list" style={{ marginBottom: 0 }}>
-            <li>This site shows our business identity, product/services, and contact details.</li>
-            <li>Privacy Policy and Terms are publicly accessible.</li>
-            <li>Website loads without login and is accessible worldwide.</li>
-          </ul>
-        </div>
-      </section>
+      <Section>
+        <Container>
+          <div className="grid cols-2">
+            <Card>
+              <span className="sectionKicker">How it works</span>
+              <h2 className="sectionTitle">A refined, guided process.</h2>
+              <div className="timeline">
+                {steps.map((step, index) => (
+                  <div key={step.title} className="timelineItem">
+                    <div className="timelineStep">{index + 1}</div>
+                    <div className="timelineContent">
+                      <h4>{step.title}</h4>
+                      <p className="muted">{step.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <div>
+              <span className="sectionKicker">Why choose us</span>
+              <h2 className="sectionTitle">Designed with care, delivered with precision.</h2>
+              <div className="grid" style={{ marginTop: 20 }}>
+                {reasons.map((reason) => (
+                  <Card key={reason.title}>
+                    <h3 className="cardTitle">{reason.title}</h3>
+                    <p className="muted">{reason.description}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="instagramCard">
+            <span className="sectionKicker">Instagram</span>
+            <h2 className="sectionTitle">See real invitations &amp; behind-the-scenes.</h2>
+            <p className="muted">
+              Follow our latest boutique designs, material swatches, and new launches on Instagram.
+            </p>
+            {BUSINESS.instagram ? (
+              <a className="button" href={BUSINESS.instagram} target="_blank" rel="noreferrer">
+                Visit @sanju.sk.digital
+              </a>
+            ) : null}
+          </div>
+        </Container>
+      </Section>
     </div>
   );
 }
