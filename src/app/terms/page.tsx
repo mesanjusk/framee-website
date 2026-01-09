@@ -11,7 +11,7 @@ export default function Page() {
       <div className="card" style={{ marginTop: 16 }}>
         <h3 style={{ marginTop: 0 }}>Service</h3>
         <p style={{ color: "#374151" }}>
-          We provide framing/printing/creative services as described on this website. Timelines depend on requirements and availability.
+          We provide invitation card design, printing, and related stationery services as described on this website. Timelines depend on requirements and availability.
         </p>
 
         <h3>Pricing & Payment</h3>

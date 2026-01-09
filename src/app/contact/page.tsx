@@ -2,29 +2,33 @@ import { BUSINESS } from "../../config/business";
 
 export default function Page() {
   return (
-    <div style={{ paddingTop: 20 }}>
+    <div style={{ paddingTop: 20, paddingBottom: 10 }}>
       <h1>Contact</h1>
-      <p style={{ color: "#374151", maxWidth: "80ch" }}>
-        Use real contact details. Meta/WhatsApp reviewers rely on this to confirm business legitimacy.
+      <p className="muted" style={{ maxWidth: "80ch" }}>
+        For quotes, share event name, date, quantity, size, preferred theme, and finish (foil/emboss/laser-cut etc.).
       </p>
 
       <div className="grid cols-2" style={{ marginTop: 18 }}>
         <div className="card">
           <h3 style={{ marginTop: 0 }}>Support</h3>
-          <div className="kv"><div className="k">Email</div><div className="v"><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></div></div>
-          <div className="kv" style={{ marginTop: 10 }}><div className="k">Phone</div><div className="v"><a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a></div></div>
-          <div className="kv" style={{ marginTop: 10 }}><div className="k">Address</div><div className="v">{BUSINESS.address}</div></div>
-          <div className="kv" style={{ marginTop: 10 }}><div className="k">Working Hours</div><div className="v">{BUSINESS.hours}</div></div>
+          <div className="muted"><b>Email:</b> <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></div>
+          <div className="muted" style={{ marginTop: 8 }}><b>Phone:</b> <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a></div>
+          {BUSINESS.whatsapp ? (
+            <div className="muted" style={{ marginTop: 8 }}><b>WhatsApp:</b> <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">Chat on WhatsApp</a></div>
+          ) : null}
+          <div className="muted" style={{ marginTop: 8 }}><b>Address:</b> {BUSINESS.address}</div>
+          <div className="muted" style={{ marginTop: 8 }}><b>Hours:</b> {BUSINESS.hours}</div>
         </div>
 
         <div className="card">
-          <h3 style={{ marginTop: 0 }}>Message</h3>
-          <p style={{ color: "#374151" }}>
-            Add a form only if you have a backend/email handler. For policy compliance, contact details are enough.
-          </p>
-          <ul style={{ color: "#374151", marginBottom: 0 }}>
-            <li>Reply time: within 24 hours</li>
-            <li>For urgent support, call the number above</li>
+          <h3 style={{ marginTop: 0 }}>Quick checklist for quote</h3>
+          <ul className="list" style={{ marginBottom: 0 }}>
+            <li>Event type + date</li>
+            <li>Quantity required</li>
+            <li>Card size (if known)</li>
+            <li>Theme reference / color preference</li>
+            <li>Finish preference (foil/emboss/texture/laser-cut)</li>
+            <li>Delivery timeline & location</li>
           </ul>
         </div>
       </div>

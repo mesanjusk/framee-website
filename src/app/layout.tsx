@@ -18,15 +18,12 @@ export const metadata: Metadata = {
     locale: "en_IN",
     type: "website",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} style={{ padding: "8px 10px", borderRadius: 10 }}>
+    <Link className="navlink" href={href}>
       {label}
     </Link>
   );
@@ -45,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       streetAddress: BUSINESS.address,
       addressCountry: "IN",
     },
+    sameAs: [BUSINESS.instagram].filter(Boolean),
   };
 
   return (
@@ -53,15 +51,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="header">
           <div className="container">
             <div className="nav">
-              <div className="hstack">
-                <Link href="/" style={{ fontWeight: 800, fontSize: 18 }}>
-                  {BUSINESS.name}
-                </Link>
-                <span className="badge">Verified-ready website</span>
-              </div>
+              <Link href="/" className="brand" aria-label={BUSINESS.name}>
+                <div className="brandMark" />
+                <div className="brandText">
+                  <div className="brandName">{BUSINESS.name}</div>
+                  <div className="brandTag">{BUSINESS.tagline}</div>
+                </div>
+              </Link>
+
               <nav className="navlinks" aria-label="Primary">
+                <NavLink href="/services" label="Collections" />
+                <NavLink href="/gallery" label="Gallery" />
                 <NavLink href="/about" label="About" />
-                <NavLink href="/services" label="Services" />
                 <NavLink href="/contact" label="Contact" />
                 <NavLink href="/privacy-policy" label="Privacy" />
                 <NavLink href="/terms" label="Terms" />
@@ -75,23 +76,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="footer">
           <div className="container">
             <div className="grid cols-2">
-              <div className="kv">
-                <div className="k">Business</div>
-                <div className="v">{BUSINESS.name}</div>
-                <div style={{ marginTop: 6 }}>{BUSINESS.address}</div>
+              <div>
+                <div className="footerTitle">{BUSINESS.name}</div>
+                <div className="muted">{BUSINESS.address}</div>
+                <div className="muted" style={{ marginTop: 8 }}>{BUSINESS.hours}</div>
               </div>
-              <div className="kv">
-                <div className="k">Support</div>
-                <div>
+
+              <div>
+                <div className="footerTitle">Support</div>
+                <div className="muted">
                   Email: <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
                 </div>
-                <div>
+                <div className="muted">
                   Phone: <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a>
                 </div>
-                <div style={{ marginTop: 6 }}>{BUSINESS.hours}</div>
+                {BUSINESS.whatsapp ? (
+                  <div className="muted">
+                    WhatsApp: <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+                  </div>
+                ) : null}
               </div>
             </div>
-            <div style={{ marginTop: 14 }}>
+
+            <div className="divider" />
+
+            <div className="muted">
               © {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.
             </div>
           </div>
