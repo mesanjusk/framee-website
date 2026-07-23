@@ -16,7 +16,7 @@ import { BUSINESS } from "../../config/business";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Browse Sanjusk Cards' gallery of premium wedding invitations, engagement cards, save the date, RSVP cards, acrylic invites, and luxury stationery.",
+    "Browse SK Digital Cards' gallery of premium wedding invitations, engagement cards, save the date, RSVP cards, acrylic invites, and luxury stationery.",
 };
 
 const galleryItems = [

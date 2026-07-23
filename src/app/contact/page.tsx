@@ -5,7 +5,7 @@ import { BUSINESS } from "../../config/business";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Sanjusk Cards for custom wedding invitation quotes. Reach us via email, phone, or WhatsApp — we typically respond within a few hours.",
+    "Contact SK Digital Cards for custom wedding invitation quotes. Reach us via email, phone, or WhatsApp — we typically respond within a few hours.",
 };
 
 const contactItems = [
