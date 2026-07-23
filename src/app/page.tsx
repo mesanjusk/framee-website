@@ -13,10 +13,13 @@ import {
   Check,
 } from "lucide-react";
 import { BUSINESS } from "../config/business";
+import { BrandMark } from "../components/BrandMark";
 
 /* ====================================================
    DATA
    ==================================================== */
+
+const cardColors = ["#c6a4ee", "#fbd13d", "#f2a8cd", "#7dd957"];
 
 const products = [
   {
@@ -121,22 +124,26 @@ const features = [
 
 const processSteps = [
   {
-    num: "01",
+    num: "1",
+    emoji: "🎨",
     title: "Choose Design",
     desc: "Browse our collections or share your inspiration and theme references with us.",
   },
   {
-    num: "02",
+    num: "2",
+    emoji: "✍️",
     title: "Personalize",
     desc: "Share your names, date, venue, wording, and any customization requests.",
   },
   {
-    num: "03",
+    num: "3",
+    emoji: "✅",
     title: "Approve Proof",
     desc: "Review your digital proof carefully and request any final adjustments.",
   },
   {
-    num: "04",
+    num: "4",
+    emoji: "🎁",
     title: "Delivered",
     desc: "Your beautiful invitations are printed, carefully packed, and delivered to you.",
   },
@@ -160,6 +167,25 @@ const testimonials = [
     name: "Meera & Karan",
     location: "Delhi, India",
     initials: "MK",
+  },
+];
+
+const faqs = [
+  {
+    q: "How long does delivery take?",
+    a: "You'll get a digital proof within 24 hours. Printing and dispatch follow within 3–5 working days once approved.",
+  },
+  {
+    q: "Do you ship worldwide?",
+    a: "Yes — we deliver joy to couples across 50+ countries through trusted courier partners.",
+  },
+  {
+    q: "Can I fully customize my card?",
+    a: "Absolutely. Every card is designed from scratch to perfectly match your theme, wording and budget.",
+  },
+  {
+    q: "How do I place an order?",
+    a: "Message us on WhatsApp for a free consultation and we'll guide you from design to delivery.",
   },
 ];
 
@@ -194,12 +220,12 @@ export default function Page() {
         <div className="container">
           <div className="hero-grid">
             <div>
-              <span className="tag tag-outline" style={{ marginBottom: "var(--space-4)" }}>
-                Premium Wedding Invitation Studio
-              </span>
+              <p className="script-tag" style={{ marginBottom: "var(--space-3)" }}>
+                Shipping worldwide to 50+ countries
+              </p>
 
               <h1 className="hero-title">
-                Create Your <span className="accent">Dream Wedding</span> Invitation
+                Invitations worth <span className="accent">celebrating</span>
               </h1>
 
               <p className="hero-sub">
@@ -208,11 +234,14 @@ export default function Page() {
               </p>
 
               <div className="hero-ctas">
-                <Link className="btn btn-primary" href="/services">
+                {BUSINESS.whatsapp && (
+                  <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
+                    <span className="btn-split-label">Get a free quote</span>
+                    <span className="btn-split-arrow">→</span>
+                  </a>
+                )}
+                <Link className="btn btn-secondary" href="/services">
                   Explore Collection
-                </Link>
-                <Link className="btn btn-secondary" href="/contact">
-                  Customize Your Card
                 </Link>
               </div>
 
@@ -250,50 +279,43 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          PRODUCTS
+          OUR COLLECTIONS
           ============================================================ */}
-      <section className="section section-surface">
+      <section className="section section-flush">
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              Our Collections
-            </span>
-            <h2>Explore <span style={{ color: "var(--color-accent)" }}>Premium</span> Designs</h2>
-            <p className="section-desc">
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2>Our Collections</h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
               Each card is crafted with the finest materials and meticulous attention to every detail.
             </p>
           </div>
 
-          <div className="grid grid-3">
-            {products.map((p, i) => (
-              <article key={i} className="tile-card">
-                <div className="media-tile">
-                  <p.Icon size={56} color="var(--color-neutral-600)" />
+          <div className="scroll-row">
+            {products.slice(0, 4).map((p, i) => (
+              <article key={i} className="card" style={{ background: cardColors[i % cardColors.length] }}>
+                <div className="media-tile" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
+                  <p.Icon size={56} color="rgba(20,20,20,0.55)" />
+                </div>
+                <div className="hstack" style={{ gap: 8 }}>
+                  <span className="tag" style={{ background: "rgba(255,255,255,0.75)", color: "var(--color-text)" }}>
+                    {p.category}
+                  </span>
                   {p.badge && (
-                    <span
-                      className={`tag ${p.badge === "Bestseller" ? "tag-accent" : "tag-neutral"}`}
-                      style={{ position: "absolute", top: "var(--space-3)", left: "var(--space-3)" }}
-                    >
-                      {p.badge}
+                    <span className={`tag ${p.badge === "Bestseller" ? "tag-accent" : "tag-accent-2"}`}>
+                      {p.badge === "Bestseller" ? "★ Bestseller" : "✦ New"}
                     </span>
                   )}
                 </div>
-                <div className="card-body-inner">
-                  <div className="card-kicker">{p.category}</div>
-                  <div className="card-title">{p.name}</div>
-                  <div className="card-meta">
-                    {p.rating} ★ · {p.reviews} reviews
-                  </div>
-                  <div className="hstack" style={{ justifyContent: "space-between", marginTop: "var(--space-2)" }}>
-                    <span className="card-price">{p.price}</span>
-                    <span className="tag tag-outline">Personalize</span>
-                  </div>
-                </div>
+                <div className="card-title" style={{ fontSize: 24 }}>{p.name}</div>
+                <p className="card-body" style={{ opacity: 1 }}>
+                  {p.rating} ★ · {p.reviews} reviews
+                </p>
+                <div className="card-price">{p.price}</div>
               </article>
             ))}
           </div>
 
-          <div style={{ marginTop: "var(--space-8)" }}>
+          <div style={{ marginTop: "var(--space-8)", textAlign: "center" }}>
             <Link className="btn btn-primary" href="/services">
               View All Collections
             </Link>
@@ -304,14 +326,11 @@ export default function Page() {
       {/* ============================================================
           CATEGORIES
           ============================================================ */}
-      <section className="section">
+      <section className="section section-surface">
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              Browse by Type
-            </span>
-            <h2>Find Your <span style={{ color: "var(--color-accent)" }}>Perfect</span> Style</h2>
-            <p className="section-desc">
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2>Find Your <span className="accent">Perfect</span> Style</h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
               From traditional elegance to modern luxury, we have designs for every taste and budget.
             </p>
           </div>
@@ -322,8 +341,8 @@ export default function Page() {
                 <div className="icon-badge" style={{ marginBottom: "var(--space-3)" }}>
                   <cat.Icon size={20} />
                 </div>
-                <div className="card-title" style={{ fontSize: 15 }}>{cat.name}</div>
-                <div className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 60%, transparent)" }}>
+                <div className="card-title" style={{ fontSize: 16 }}>{cat.name}</div>
+                <div className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 65%, transparent)" }}>
                   {cat.desc}
                 </div>
               </Link>
@@ -333,28 +352,36 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          WHY CHOOSE US
+          BANNER — "Cards for every event"
           ============================================================ */}
-      <section className="section section-surface">
+      <section className="banner-strip" style={{ background: "var(--color-pink-hot)", color: "#fff" }}>
+        <h2>Cards for every event</h2>
+        <div className="banner-ring">
+          <BrandMark color="#fff" />
+        </div>
+      </section>
+
+      {/* ============================================================
+          WHY SANJUSK
+          ============================================================ */}
+      <section className="section" style={{ background: "var(--color-yellow)" }}>
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              Why Choose Us
-            </span>
-            <h2>Crafted with <span style={{ color: "var(--color-accent)" }}>Care</span></h2>
-            <p className="section-desc">
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
+            <p className="script-tag" style={{ fontSize: 32, color: "var(--color-purple-ink)" }}>Why Sanjusk?</p>
+            <h2>Crafted with <span className="accent">Care</span></h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
               We believe every wedding invitation should be as unique as the love story it represents.
             </p>
           </div>
 
           <div className="grid grid-3">
             {features.map((f, i) => (
-              <div key={i} className="card" style={{ padding: "var(--space-4)", gap: "var(--space-3)" }}>
+              <div key={i} className="card" style={{ background: "#fff" }}>
                 <div className="icon-badge-lg">
                   <f.Icon size={26} />
                 </div>
                 <div className="card-title">{f.title}</div>
-                <p className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 65%, transparent)" }}>
+                <p className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 70%, transparent)" }}>
                   {f.desc}
                 </p>
               </div>
@@ -364,31 +391,35 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          PROCESS
+          HOW IT WORKS
           ============================================================ */}
-      <section className="section">
+      <section className="section" style={{ background: "var(--color-lilac)" }}>
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              How It Works
-            </span>
-            <h2>Your <span style={{ color: "var(--color-accent)" }}>Journey</span> to Beautiful Invitations</h2>
-            <p className="section-desc">
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2>How it works</h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
               A simple, seamless process from your idea to your doorstep in just four steps.
             </p>
           </div>
 
-          <div className="grid grid-4">
+          <div className="scroll-row">
             {processSteps.map((step, i) => (
               <div key={i} className="process-step">
-                <span className="process-num">{step.num}</span>
-                <div className="card-title" style={{ fontSize: 17 }}>{step.title}</div>
-                <p className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 60%, transparent)" }}>
+                <span className="process-num">Step #{step.num}</span>
+                <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
+                  {step.emoji}
+                </div>
+                <div className="card-title" style={{ fontSize: 22, color: "var(--color-text)" }}>{step.title}</div>
+                <p className="card-body" style={{ opacity: 1, color: "var(--color-purple-ink)" }}>
                   {step.desc}
                 </p>
               </div>
             ))}
           </div>
+
+          <p className="script-tag" style={{ display: "block", textAlign: "center", marginTop: "var(--space-6)", color: "var(--color-purple-deep)" }}>
+            Consider us your personal invitation designers
+          </p>
         </div>
       </section>
 
@@ -397,24 +428,21 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              Happy Couples
-            </span>
-            <h2>Words from <span style={{ color: "var(--color-accent)" }}>Real Couples</span></h2>
-            <p className="section-desc">
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2>Words from <span className="accent">Real Couples</span></h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
               Over a thousand couples have trusted us with the most important invitations of their lives.
             </p>
           </div>
 
           <div className="grid grid-3">
             {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card">
+              <div key={i} className="testimonial-card" style={{ background: "#fff" }}>
                 <p className="testimonial-text">&ldquo;{t.text}&rdquo;</p>
                 <div className="testimonial-author">
                   <div className="testimonial-avatar">{t.initials}</div>
                   <div>
-                    <div className="card-title" style={{ fontSize: 14 }}>{t.name}</div>
+                    <div className="card-title" style={{ fontSize: 15 }}>{t.name}</div>
                     <div className="card-meta">{t.location}</div>
                   </div>
                 </div>
@@ -425,17 +453,41 @@ export default function Page() {
       </section>
 
       {/* ============================================================
+          FAQ
+          ============================================================ */}
+      <section className="section section-flush">
+        <div className="container" style={{ maxWidth: 720 }}>
+          <h2 style={{ textAlign: "center", marginBottom: "var(--space-6)" }}>Common questions</h2>
+          <div className="stack" style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}>
+            {faqs.map((item, i) => (
+              <details key={i} className="faq-item">
+                <summary>
+                  <span className="faq-q">{item.q}</span>
+                  <span className="faq-plus">+</span>
+                </summary>
+                <p className="faq-a">{item.a}</p>
+              </details>
+            ))}
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <Link className="btn-split" href="/contact" style={{ display: "inline-flex" }}>
+              <span className="btn-split-label">Show all FAQ</span>
+              <span className="btn-split-arrow">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
           GALLERY
           ============================================================ */}
-      <section className="section">
+      <section className="section section-surface">
         <div className="container">
-          <div className="section-head">
-            <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>
-              Our Work
-            </span>
-            <h2>A Glimpse of Our <span style={{ color: "var(--color-accent)" }}>Creations</span></h2>
-            <p className="section-desc">
-              Browse through our portfolio of handcrafted, personalized invitations.
+          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2>Made <span className="accent">Just for You</span></h2>
+            <p className="section-desc" style={{ margin: "0 auto" }}>
+              Share your theme, colours and wording, and we&apos;ll craft an invitation that&apos;s entirely yours.
+              Free consultation, no obligation — just tell us your vision and we&apos;ll take it from there.
             </p>
           </div>
 
@@ -452,38 +504,62 @@ export default function Page() {
             ))}
           </div>
 
-          <div style={{ marginTop: "var(--space-8)" }}>
+          <div style={{ marginTop: "var(--space-8)", textAlign: "center" }}>
             <Link className="btn btn-secondary" href="/gallery">View Full Gallery</Link>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          CTA SECTION — the poster statement, the accent runs as a field
+          CLIENT FAVOURITES
+          ============================================================ */}
+      <section className="section" style={{ background: "var(--color-yellow)", textAlign: "center" }}>
+        <div className="container" style={{ maxWidth: 520 }}>
+          <h2>Client Favourites</h2>
+          <p className="section-desc" style={{ margin: "0 auto var(--space-6)" }}>
+            Every season our couples pick the designs they love most. These bestselling invitations
+            have won hearts across 1000+ celebrations over the years.
+          </p>
+
+          <div style={{ position: "relative", maxWidth: 300, margin: "0 auto" }}>
+            <span className="sticker-badge" style={{ left: -10, top: 4, width: 70, height: 70, fontSize: 17 }}>
+              1000+
+            </span>
+            <span className="sticker-badge" style={{ right: -10, top: 46, width: 78, height: 78, fontSize: 22 }}>
+              5.0★
+            </span>
+            <div className="tile-card">
+              <div className="media-tile" style={{ height: 340, aspectRatio: "auto" }}>
+                <Flower2 size={56} color="var(--color-neutral-600)" />
+              </div>
+              <div className="gallery-label">
+                <div className="gallery-label-title">Royal Wedding Suite</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          SANJUSK EXCLUSIVE — dark poster CTA
           ============================================================ */}
       <section className="section">
         <div className="container">
+          <h2 style={{ marginBottom: "var(--space-6)" }}>Sanjusk Exclusive</h2>
           <div className="cta-band">
-            <h2>Let&apos;s Create Your Dream Wedding Invitation</h2>
-            <p className="section-desc" style={{ marginBottom: "var(--space-6)" }}>
-              Share your vision and we&apos;ll craft an invitation that perfectly captures your love story.
-              Free consultation, no obligation.
-            </p>
-            <div className="hstack">
-              {BUSINESS.whatsapp && (
-                <a
-                  className="btn btn-secondary"
-                  href={BUSINESS.whatsapp}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Get Free Consultation
-                </a>
-              )}
-              <Link className="btn btn-ghost" href="/services">
-                Start Designing
-              </Link>
+            <div className="media-tile" style={{ background: "rgba(255,255,255,0.08)", aspectRatio: "auto", height: 260, marginBottom: "var(--space-6)" }}>
+              <Gem size={48} color="rgba(255,255,255,0.5)" />
             </div>
+            <p className="section-desc" style={{ marginBottom: "var(--space-6)" }}>
+              Sanjusk Cards has crafted bespoke invitations for over 5 years, trusted by 1000+ happy couples
+              across India and beyond. This is our signature limited edition.
+            </p>
+            {BUSINESS.whatsapp && (
+              <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
+                <span className="btn-split-label">Get a quote!</span>
+                <span className="btn-split-arrow">→</span>
+              </a>
+            )}
           </div>
         </div>
       </section>

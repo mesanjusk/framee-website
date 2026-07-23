@@ -3,6 +3,8 @@ import "./globals.css";
 import Link from "next/link";
 import { Mail, MessageCircle, Instagram } from "lucide-react";
 import { BUSINESS } from "../config/business";
+import { BrandMark } from "../components/BrandMark";
+import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata: Metadata = {
   title: {
@@ -21,18 +23,6 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
 };
-
-function NavLink({ href, label }: { href: string; label: string }) {
-  return (
-    <Link href={href}>
-      {label}
-    </Link>
-  );
-}
-
-function BrandMark() {
-  return <div className="brand-mark">S</div>;
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const jsonLd = {
@@ -54,39 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         {/* ===== HEADER ===== */}
-        <header className="site-header">
-          <div className="nav">
-            <Link href="/" className="brand-link" aria-label={BUSINESS.name}>
-              <BrandMark />
-              <div>
-                <div className="brand-name">{BUSINESS.name}</div>
-                <div className="brand-tag">Wedding Invitation Studio</div>
-              </div>
-            </Link>
-
-            <nav className="nav-links" aria-label="Primary navigation">
-              <NavLink href="/services" label="Collections" />
-              <NavLink href="/gallery" label="Gallery" />
-              <NavLink href="/about" label="About" />
-              <NavLink href="/contact" label="Contact" />
-            </nav>
-
-            {BUSINESS.whatsapp ? (
-              <a
-                className="btn btn-primary nav-cta"
-                href={BUSINESS.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Chat on WhatsApp"
-              >
-                <MessageCircle size={15} />
-                WhatsApp
-              </a>
-            ) : (
-              <Link className="btn btn-primary nav-cta" href="/contact">Get Quote</Link>
-            )}
-          </div>
-        </header>
+        <SiteHeader />
 
         {/* ===== MAIN ===== */}
         <main>{children}</main>
@@ -94,39 +52,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* ===== FOOTER ===== */}
         <footer className="site-footer">
           <div className="container">
-            <div className="footer-grid">
-              {/* Brand Column */}
-              <div>
-                <Link href="/" className="brand-link" aria-label={BUSINESS.name}>
-                  <BrandMark />
-                  <div>
-                    <div className="brand-name">{BUSINESS.name}</div>
-                    <div className="brand-tag" style={{ color: "color-mix(in srgb, var(--color-neutral-100) 55%, transparent)" }}>
-                      Wedding Invitation Studio
-                    </div>
-                  </div>
-                </Link>
-                <p className="footer-desc">
-                  Crafting bespoke wedding invitations that tell your unique love story.
-                  Premium quality, delivered with care.
-                </p>
-                <div className="footer-socials">
-                  {BUSINESS.instagram && (
-                    <a href={BUSINESS.instagram} target="_blank" rel="noreferrer" className="footer-social" aria-label="Instagram">
-                      <Instagram size={16} />
-                    </a>
-                  )}
-                  {BUSINESS.whatsapp && (
-                    <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer" className="footer-social" aria-label="WhatsApp">
-                      <MessageCircle size={16} />
-                    </a>
-                  )}
-                  <a href={`mailto:${BUSINESS.email}`} className="footer-social" aria-label="Email">
-                    <Mail size={16} />
-                  </a>
-                </div>
-              </div>
+            {/* Brand + quick-contact chips */}
+            <Link href="/" className="brand-link" aria-label={BUSINESS.name} style={{ marginBottom: "var(--space-4)" }}>
+              <span className="brand-mark"><BrandMark color="#fff" /></span>
+              <span className="brand-name">sanjusk</span>
+              <span className="brand-tag">CARDS<br />STUDIO</span>
+            </Link>
 
+            <div className="footer-chips">
+              {BUSINESS.whatsapp && (
+                <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer" className="footer-chip">
+                  <span className="footer-chip-emoji" aria-hidden="true">💬</span>
+                  <span>
+                    <span className="footer-chip-eyebrow">Message us on</span>
+                    <span className="footer-chip-label">WhatsApp</span>
+                  </span>
+                </a>
+              )}
+              {BUSINESS.instagram && (
+                <a href={BUSINESS.instagram} target="_blank" rel="noreferrer" className="footer-chip">
+                  <span className="footer-chip-emoji" aria-hidden="true">📸</span>
+                  <span>
+                    <span className="footer-chip-eyebrow">Follow us on</span>
+                    <span className="footer-chip-label">Instagram</span>
+                  </span>
+                </a>
+              )}
+            </div>
+
+            <div className="footer-grid">
               {/* Quick Links */}
               <div>
                 <div className="footer-heading">Quick Links</div>
@@ -148,24 +102,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li>
                     <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a>
                   </li>
-                  <li style={{ color: "color-mix(in srgb, var(--color-neutral-100) 55%, transparent)", fontSize: 13.5 }}>
+                  <li style={{ color: "color-mix(in srgb, #fff 65%, transparent)", fontSize: 13.5 }}>
                     {BUSINESS.address}
                   </li>
-                  <li style={{ color: "color-mix(in srgb, var(--color-neutral-100) 55%, transparent)", fontSize: 13.5 }}>
+                  <li style={{ color: "color-mix(in srgb, #fff 65%, transparent)", fontSize: 13.5 }}>
                     {BUSINESS.hours}
-                  </li>
-                  <li>
-                    <Link href="/privacy-policy" style={{ fontSize: 12.5 }}>Privacy Policy</Link>
-                  </li>
-                  <li>
-                    <Link href="/terms" style={{ fontSize: 12.5 }}>Terms &amp; Conditions</Link>
                   </li>
                 </ul>
               </div>
 
               {/* Newsletter */}
               <div>
-                <div className="footer-heading">Stay Inspired</div>
+                <div className="footer-heading" style={{ fontSize: 22 }}>Stay inspired</div>
                 <p className="footer-desc" style={{ maxWidth: "none" }}>
                   Get design inspiration, offers, and wedding stationery tips.
                 </p>
@@ -173,24 +121,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <input
                     type="email"
                     className="input"
-                    placeholder="your@email.com"
+                    placeholder="Email Address"
                     aria-label="Email address for newsletter"
                   />
-                  <button className="btn btn-primary" type="button">
-                    Subscribe
+                  <button className="btn-split" type="button" style={{ width: "fit-content" }}>
+                    <span className="btn-split-label">Subscribe</span>
+                    <span className="btn-split-arrow">→</span>
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="footer-bottom">
-              <div className="footer-copy">
-                © {new Date().getFullYear()} {BUSINESS.name}. All rights reserved. Crafted in India.
-              </div>
               <div className="footer-bottom-links">
-                <Link href="/privacy-policy">Privacy</Link>
-                <Link href="/terms">Terms</Link>
-                <Link href="/contact">Contact</Link>
+                <Link href="/terms">Terms of Service</Link>
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </div>
+              <div className="footer-socials">
+                {BUSINESS.instagram && (
+                  <a href={BUSINESS.instagram} target="_blank" rel="noreferrer" className="footer-social" aria-label="Instagram">
+                    <Instagram size={16} />
+                  </a>
+                )}
+                <a href={`mailto:${BUSINESS.email}`} className="footer-social" aria-label="Email">
+                  <Mail size={16} />
+                </a>
+                {BUSINESS.whatsapp && (
+                  <a href={BUSINESS.whatsapp} target="_blank" rel="noreferrer" className="footer-social" aria-label="WhatsApp">
+                    <MessageCircle size={16} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-strip">
+            <div className="container footer-strip-row">
+              <p className="footer-copy">
+                © {new Date().getFullYear()} {BUSINESS.name}. All rights reserved. Crafted with ♥ in India.
+              </p>
+              <div className="footer-strip-contact">
+                <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+                <a href={`tel:${BUSINESS.phone}`}>{BUSINESS.phone}</a>
               </div>
             </div>
           </div>
