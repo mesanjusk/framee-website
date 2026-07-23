@@ -6,7 +6,7 @@ import { BUSINESS } from "../../config/business";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Sanjusk Cards — a boutique invitation card studio designing premium, theme-based invitations for weddings, engagements, birthdays, and more.",
+    "Learn about SK Digital Cards — a boutique invitation card studio designing premium, theme-based invitations for weddings, engagements, birthdays, and more.",
 };
 
 const values = [
@@ -58,7 +58,7 @@ export default function Page() {
             <h2 style={{ fontSize: 24 }}>Who We Are</h2>
             <p style={{ fontSize: 14.5, lineHeight: 1.8 }}>{BUSINESS.description}</p>
             <p className="text-muted" style={{ fontSize: 14, lineHeight: 1.75 }}>
-              Based in {BUSINESS.address}, we serve clients locally and worldwide, combining
+              Based in {BUSINESS.address}, we serve clients across India, combining
               traditional craftsmanship with modern design sensibilities.
             </p>
           </div>

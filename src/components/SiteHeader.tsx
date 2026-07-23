@@ -23,7 +23,7 @@ export function SiteHeader() {
           <span className="brand-mark">
             <BrandMark />
           </span>
-          <span className="brand-name">sanjusk</span>
+          <span className="brand-name">SK Digital</span>
           <span className="brand-tag">
             CARDS
             <br />
@@ -49,7 +49,7 @@ export function SiteHeader() {
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle size={15} />
-              WhatsApp
+              <span className="nav-cta-label">WhatsApp</span>
             </a>
           ) : (
             <Link className="btn btn-primary nav-cta" href="/contact">

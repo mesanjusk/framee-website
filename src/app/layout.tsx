@@ -5,6 +5,7 @@ import { Mail, MessageCircle, Instagram } from "lucide-react";
 import { BUSINESS } from "../config/business";
 import { BrandMark } from "../components/BrandMark";
 import { SiteHeader } from "../components/SiteHeader";
+import { ScrollReveal } from "../components/ScrollReveal";
 
 export const metadata: Metadata = {
   title: {
@@ -43,6 +44,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        {/* If JS is disabled, ScrollReveal never runs to add .reveal-visible —
+            this keeps hero/section content visible instead of stuck at opacity:0. */}
+        <noscript>
+          <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
+        <ScrollReveal />
+
         {/* ===== HEADER ===== */}
         <SiteHeader />
 
@@ -55,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Brand + quick-contact chips */}
             <Link href="/" className="brand-link" aria-label={BUSINESS.name} style={{ marginBottom: "var(--space-4)" }}>
               <span className="brand-mark"><BrandMark color="#fff" /></span>
-              <span className="brand-name">sanjusk</span>
+              <span className="brand-name">SK Digital</span>
               <span className="brand-tag">CARDS<br />STUDIO</span>
             </Link>
 

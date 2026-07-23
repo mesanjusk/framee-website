@@ -106,8 +106,8 @@ const features = [
     Icon: Sparkles,
   },
   {
-    title: "Worldwide Shipping",
-    desc: "Delivering joy to couples across 50+ countries with trusted courier partners.",
+    title: "Pan-India Shipping",
+    desc: "Delivering joy to couples across India with trusted courier partners.",
     Icon: Leaf,
   },
   {
@@ -117,7 +117,7 @@ const features = [
   },
   {
     title: "1000+ Happy Couples",
-    desc: "Trusted by couples across India and beyond for over 5 years with glowing reviews.",
+    desc: "Trusted by couples across India for over 5 years with glowing reviews.",
     Icon: Heart,
   },
 ];
@@ -157,7 +157,7 @@ const testimonials = [
     initials: "PR",
   },
   {
-    text: "We ordered acrylic box invitations and the unboxing experience was truly magical. Worth every rupee. Sanjusk Cards exceeded every one of our expectations.",
+    text: "We ordered acrylic box invitations and the unboxing experience was truly magical. Worth every rupee. SK Digital Cards exceeded every one of our expectations.",
     name: "Ananya & Dev",
     location: "Bangalore, India",
     initials: "AD",
@@ -176,8 +176,8 @@ const faqs = [
     a: "You'll get a digital proof within 24 hours. Printing and dispatch follow within 3–5 working days once approved.",
   },
   {
-    q: "Do you ship worldwide?",
-    a: "Yes — we deliver joy to couples across 50+ countries through trusted courier partners.",
+    q: "Do you ship across India?",
+    a: "Yes — we deliver joy to couples across India through trusted courier partners.",
   },
   {
     q: "Can I fully customize my card?",
@@ -201,7 +201,7 @@ const galleryItems = [
 const trustPoints = [
   "Premium Quality Materials",
   "100% Custom Design",
-  "Worldwide Delivery",
+  "Pan-India Delivery",
   "5-Star Rated Studio",
   "1000+ Happy Couples",
 ];
@@ -220,20 +220,20 @@ export default function Page() {
         <div className="container">
           <div className="hero-grid">
             <div>
-              <p className="script-tag" style={{ marginBottom: "var(--space-3)" }}>
-                Shipping worldwide to 50+ countries
+              <p className="script-tag reveal" style={{ marginBottom: "var(--space-3)", transitionDelay: "0ms" }}>
+                Shipping across India
               </p>
 
-              <h1 className="hero-title">
+              <h1 className="hero-title reveal" style={{ transitionDelay: "90ms" }}>
                 Invitations worth <span className="accent">celebrating</span>
               </h1>
 
-              <p className="hero-sub">
+              <p className="hero-sub reveal" style={{ transitionDelay: "180ms" }}>
                 Bespoke, handcrafted invitation cards designed to reflect your love story.
                 From classic elegance to modern luxury — every detail perfectly yours.
               </p>
 
-              <div className="hero-ctas">
+              <div className="hero-ctas reveal" style={{ transitionDelay: "270ms" }}>
                 {BUSINESS.whatsapp && (
                   <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
                     <span className="btn-split-label">Get a free quote</span>
@@ -245,14 +245,14 @@ export default function Page() {
                 </Link>
               </div>
 
-              <div className="hero-stats">
+              <div className="hero-stats reveal" style={{ transitionDelay: "360ms" }}>
                 <div>
                   <div className="stat-num">1000+</div>
                   <div className="stat-label">Happy Couples</div>
                 </div>
                 <div>
-                  <div className="stat-num">50+</div>
-                  <div className="stat-label">Countries</div>
+                  <div className="stat-num">5+</div>
+                  <div className="stat-label">Years Experience</div>
                 </div>
                 <div>
                   <div className="stat-num">5.0★</div>
@@ -261,7 +261,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="hero-panel">
+            <div className="hero-panel reveal" style={{ transitionDelay: "150ms" }}>
               <Flower2 size={48} color="var(--color-accent-700)" />
               <div>
                 <div className="card-title">Your Perfect Card</div>
@@ -283,7 +283,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-flush">
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2>Our Collections</h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Each card is crafted with the finest materials and meticulous attention to every detail.
@@ -292,7 +292,11 @@ export default function Page() {
 
           <div className="scroll-row">
             {products.slice(0, 4).map((p, i) => (
-              <article key={i} className="card" style={{ background: cardColors[i % cardColors.length] }}>
+              <article
+                key={i}
+                className="card reveal"
+                style={{ background: cardColors[i % cardColors.length], transitionDelay: `${i * 80}ms` }}
+              >
                 <div className="media-tile" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
                   <p.Icon size={56} color="rgba(20,20,20,0.55)" />
                 </div>
@@ -328,7 +332,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2>Find Your <span className="accent">Perfect</span> Style</h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               From traditional elegance to modern luxury, we have designs for every taste and budget.
@@ -337,7 +341,7 @@ export default function Page() {
 
           <div className="grid grid-4">
             {categories.map((cat, i) => (
-              <Link key={i} href="/services" className="category-card">
+              <Link key={i} href="/services" className="category-card reveal" style={{ transitionDelay: `${i * 60}ms` }}>
                 <div className="icon-badge" style={{ marginBottom: "var(--space-3)" }}>
                   <cat.Icon size={20} />
                 </div>
@@ -355,19 +359,19 @@ export default function Page() {
           BANNER — "Cards for every event"
           ============================================================ */}
       <section className="banner-strip" style={{ background: "var(--color-pink-hot)", color: "#fff" }}>
-        <h2>Cards for every event</h2>
-        <div className="banner-ring">
+        <h2 className="reveal">Cards for every event</h2>
+        <div className="banner-ring reveal" style={{ transitionDelay: "120ms" }}>
           <BrandMark color="#fff" />
         </div>
       </section>
 
       {/* ============================================================
-          WHY SANJUSK
+          WHY SK DIGITAL
           ============================================================ */}
       <section className="section" style={{ background: "var(--color-yellow)" }}>
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
-            <p className="script-tag" style={{ fontSize: 32, color: "var(--color-purple-ink)" }}>Why Sanjusk?</p>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
+            <p className="script-tag" style={{ fontSize: 32, color: "var(--color-purple-ink)" }}>Why SK Digital?</p>
             <h2>Crafted with <span className="accent">Care</span></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               We believe every wedding invitation should be as unique as the love story it represents.
@@ -376,7 +380,7 @@ export default function Page() {
 
           <div className="grid grid-3">
             {features.map((f, i) => (
-              <div key={i} className="card" style={{ background: "#fff" }}>
+              <div key={i} className="card reveal" style={{ background: "#fff", transitionDelay: `${i * 70}ms` }}>
                 <div className="icon-badge-lg">
                   <f.Icon size={26} />
                 </div>
@@ -395,7 +399,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section" style={{ background: "var(--color-lilac)" }}>
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2>How it works</h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               A simple, seamless process from your idea to your doorstep in just four steps.
@@ -404,7 +408,7 @@ export default function Page() {
 
           <div className="scroll-row">
             {processSteps.map((step, i) => (
-              <div key={i} className="process-step">
+              <div key={i} className="process-step reveal" style={{ transitionDelay: `${i * 80}ms` }}>
                 <span className="process-num">Step #{step.num}</span>
                 <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
                   {step.emoji}
@@ -417,7 +421,7 @@ export default function Page() {
             ))}
           </div>
 
-          <p className="script-tag" style={{ display: "block", textAlign: "center", marginTop: "var(--space-6)", color: "var(--color-purple-deep)" }}>
+          <p className="script-tag reveal" style={{ display: "block", textAlign: "center", marginTop: "var(--space-6)", color: "var(--color-purple-deep)" }}>
             Consider us your personal invitation designers
           </p>
         </div>
@@ -428,7 +432,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2>Words from <span className="accent">Real Couples</span></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Over a thousand couples have trusted us with the most important invitations of their lives.
@@ -437,7 +441,7 @@ export default function Page() {
 
           <div className="grid grid-3">
             {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card" style={{ background: "#fff" }}>
+              <div key={i} className="testimonial-card reveal" style={{ background: "#fff", transitionDelay: `${i * 80}ms` }}>
                 <p className="testimonial-text">&ldquo;{t.text}&rdquo;</p>
                 <div className="testimonial-author">
                   <div className="testimonial-avatar">{t.initials}</div>
@@ -457,10 +461,10 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-flush">
         <div className="container" style={{ maxWidth: 720 }}>
-          <h2 style={{ textAlign: "center", marginBottom: "var(--space-6)" }}>Common questions</h2>
+          <h2 className="reveal" style={{ textAlign: "center", marginBottom: "var(--space-6)" }}>Common questions</h2>
           <div className="stack" style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}>
             {faqs.map((item, i) => (
-              <details key={i} className="faq-item">
+              <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 60}ms` }}>
                 <summary>
                   <span className="faq-q">{item.q}</span>
                   <span className="faq-plus">+</span>
@@ -483,7 +487,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2>Made <span className="accent">Just for You</span></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Share your theme, colours and wording, and we&apos;ll craft an invitation that&apos;s entirely yours.
@@ -493,7 +497,7 @@ export default function Page() {
 
           <div className="grid grid-3">
             {galleryItems.map((item, i) => (
-              <div key={i} className="tile-card">
+              <div key={i} className="tile-card reveal" style={{ transitionDelay: `${i * 70}ms` }}>
                 <div className="media-tile">
                   <item.Icon size={48} color="var(--color-neutral-600)" />
                 </div>
@@ -514,7 +518,7 @@ export default function Page() {
           CLIENT FAVOURITES
           ============================================================ */}
       <section className="section" style={{ background: "var(--color-yellow)", textAlign: "center" }}>
-        <div className="container" style={{ maxWidth: 520 }}>
+        <div className="container reveal" style={{ maxWidth: 520 }}>
           <h2>Client Favourites</h2>
           <p className="section-desc" style={{ margin: "0 auto var(--space-6)" }}>
             Every season our couples pick the designs they love most. These bestselling invitations
@@ -541,18 +545,18 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          SANJUSK EXCLUSIVE — dark poster CTA
+          SK DIGITAL EXCLUSIVE — dark poster CTA
           ============================================================ */}
       <section className="section">
         <div className="container">
-          <h2 style={{ marginBottom: "var(--space-6)" }}>Sanjusk Exclusive</h2>
-          <div className="cta-band">
+          <h2 className="reveal" style={{ marginBottom: "var(--space-6)" }}>SK Digital Exclusive</h2>
+          <div className="cta-band reveal" style={{ transitionDelay: "100ms" }}>
             <div className="media-tile" style={{ background: "rgba(255,255,255,0.08)", aspectRatio: "auto", height: 260, marginBottom: "var(--space-6)" }}>
               <Gem size={48} color="rgba(255,255,255,0.5)" />
             </div>
             <p className="section-desc" style={{ marginBottom: "var(--space-6)" }}>
-              Sanjusk Cards has crafted bespoke invitations for over 5 years, trusted by 1000+ happy couples
-              across India and beyond. This is our signature limited edition.
+              SK Digital Cards has crafted bespoke invitations for over 5 years, trusted by 1000+ happy couples
+              across India. This is our signature limited edition.
             </p>
             {BUSINESS.whatsapp && (
               <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
@@ -571,7 +575,7 @@ export default function Page() {
         <div className="container">
           <div className="trust-list">
             {trustPoints.map((item, i) => (
-              <div key={i} className="trust-item">
+              <div key={i} className="trust-item reveal" style={{ transitionDelay: `${i * 50}ms` }}>
                 <Check size={16} />
                 {item}
               </div>

@@ -6,7 +6,7 @@ import { BUSINESS } from "../../config/business";
 export const metadata: Metadata = {
   title: "Collections",
   description:
-    "Explore Sanjusk Cards' premium wedding invitation collections — wedding suites, save the date, RSVP cards, acrylic invites, scroll invitations, and more.",
+    "Explore SK Digital Cards' premium wedding invitation collections — wedding suites, save the date, RSVP cards, acrylic invites, scroll invitations, and more.",
 };
 
 const collections = [
