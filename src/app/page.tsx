@@ -20,6 +20,8 @@ import { BrandMark } from "../components/BrandMark";
    ==================================================== */
 
 const cardColors = ["#c6a4ee", "#fbd13d", "#f2a8cd", "#7dd957"];
+const bubbleColors = ["#ffffff", "var(--color-purple)", "var(--color-teal)", "var(--color-pink-soft)", "var(--color-green)", "#ffffff"];
+const stepColors = ["var(--color-purple)", "var(--color-pink-soft)", "var(--color-yellow)", "var(--color-teal)"];
 
 const products = [
   {
@@ -291,32 +293,44 @@ export default function Page() {
           </div>
 
           <div className="scroll-row">
-            {products.slice(0, 4).map((p, i) => (
-              <article
-                key={i}
-                className="card reveal"
-                style={{ background: cardColors[i % cardColors.length], transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="media-tile" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
-                  <p.Icon size={56} color="rgba(20,20,20,0.55)" />
-                </div>
-                <div className="hstack" style={{ gap: 8 }}>
-                  <span className="tag" style={{ background: "rgba(255,255,255,0.75)", color: "var(--color-text)" }}>
-                    {p.category}
-                  </span>
-                  {p.badge && (
-                    <span className={`tag ${p.badge === "Bestseller" ? "tag-accent" : "tag-accent-2"}`}>
-                      {p.badge === "Bestseller" ? "★ Bestseller" : "✦ New"}
+            {products.slice(0, 4).map((p, i) => {
+              const color = cardColors[i % cardColors.length];
+              return (
+                <article
+                  key={i}
+                  className="card petal-card reveal"
+                  style={{ background: color, transitionDelay: `${i * 80}ms` }}
+                >
+                  <div className="petal-ears" aria-hidden="true">
+                    <span className="petal-ear is-left" style={{ background: color }} />
+                    <span className="petal-ear is-right" style={{ background: color }} />
+                  </div>
+                  <div className="media-tile" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
+                    <p.Icon size={56} color="rgba(20,20,20,0.55)" />
+                    <div className="media-tile-cta">
+                      <Link href="/services" className="btn btn-primary" style={{ padding: "8px 16px", fontSize: 12 }}>
+                        View
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="hstack" style={{ gap: 8 }}>
+                    <span className="tag" style={{ background: "rgba(255,255,255,0.75)", color: "var(--color-text)" }}>
+                      {p.category}
                     </span>
-                  )}
-                </div>
-                <div className="card-title" style={{ fontSize: 24 }}>{p.name}</div>
-                <p className="card-body" style={{ opacity: 1 }}>
-                  {p.rating} ★ · {p.reviews} reviews
-                </p>
-                <div className="card-price">{p.price}</div>
-              </article>
-            ))}
+                    {p.badge && (
+                      <span className={`tag ${p.badge === "Bestseller" ? "tag-accent" : "tag-accent-2"}`}>
+                        {p.badge === "Bestseller" ? "★ Bestseller" : "✦ New"}
+                      </span>
+                    )}
+                  </div>
+                  <div className="card-title" style={{ fontSize: 24 }}>{p.name}</div>
+                  <p className="card-body" style={{ opacity: 1 }}>
+                    {p.rating} ★ · {p.reviews} reviews
+                  </p>
+                  <div className="card-price">{p.price}</div>
+                </article>
+              );
+            })}
           </div>
 
           <div style={{ marginTop: "var(--space-8)", textAlign: "center" }}>
@@ -328,30 +342,27 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          CATEGORIES
+          CATEGORIES — oversized word list, not icon cards
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
-            <h2>Find Your <span className="accent">Perfect</span> Style</h2>
-            <p className="section-desc" style={{ margin: "0 auto" }}>
-              From traditional elegance to modern luxury, we have designs for every taste and budget.
+          <div className="section-head reveal" style={{ margin: "0 auto var(--space-6)", textAlign: "center" }}>
+            <h2>Choose from</h2>
+            <p className="script-tag" style={{ display: "block", color: "var(--color-purple-deep)" }}>
+              We&rsquo;ve got a card for every kind of celebration
             </p>
           </div>
 
-          <div className="grid grid-4">
+          <nav className="word-cloud reveal" aria-label="Card categories">
             {categories.map((cat, i) => (
-              <Link key={i} href="/services" className="category-card reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                <div className="icon-badge" style={{ marginBottom: "var(--space-3)" }}>
-                  <cat.Icon size={20} />
-                </div>
-                <div className="card-title" style={{ fontSize: 16 }}>{cat.name}</div>
-                <div className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 65%, transparent)" }}>
-                  {cat.desc}
-                </div>
+              <Link key={i} href="/services" className="word-cloud-item">
+                {cat.name}
               </Link>
             ))}
-          </div>
+            <span className="word-cloud-item" style={{ color: "color-mix(in srgb, var(--color-text) 55%, transparent)", cursor: "default" }}>
+              and more!
+            </span>
+          </nav>
         </div>
       </section>
 
@@ -366,31 +377,46 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          WHY SK DIGITAL
+          WHY SK DIGITAL — floating bubble labels over a blob backdrop
           ============================================================ */}
-      <section className="section" style={{ background: "var(--color-yellow)" }}>
+      <section className="section organic-bg" style={{ background: "var(--color-yellow)" }}>
         <div className="container">
           <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
             <p className="script-tag" style={{ fontSize: 32, color: "var(--color-purple-ink)" }}>Why SK Digital?</p>
             <h2>Crafted with <span className="accent">Care</span></h2>
-            <p className="section-desc" style={{ margin: "0 auto" }}>
-              We believe every wedding invitation should be as unique as the love story it represents.
-            </p>
           </div>
 
-          <div className="grid grid-3">
+          <div className="floating-labels">
             {features.map((f, i) => (
-              <div key={i} className="card reveal" style={{ background: "#fff", transitionDelay: `${i * 70}ms` }}>
-                <div className="icon-badge-lg">
-                  <f.Icon size={26} />
-                </div>
-                <div className="card-title">{f.title}</div>
-                <p className="card-body" style={{ opacity: 1, color: "color-mix(in srgb, var(--color-text) 70%, transparent)" }}>
-                  {f.desc}
-                </p>
+              <div
+                key={i}
+                className="floating-label reveal"
+                style={{ background: bubbleColors[i % bubbleColors.length], transitionDelay: `${i * 70}ms` }}
+              >
+                {f.title}
               </div>
             ))}
           </div>
+
+          <p className="script-tag reveal" style={{ display: "block", textAlign: "center", marginTop: "var(--space-8)", color: "var(--color-purple-ink)" }}>
+            We believe every invitation should be as unique as the story it tells
+          </p>
+        </div>
+      </section>
+
+      {/* ============================================================
+          CURVED HANDWRITTEN BANNER
+          ============================================================ */}
+      <section className="curved-banner reveal" aria-hidden="true">
+        <div className="container">
+          <svg viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid meet">
+            <path id="tagline-curve" d="M -60 140 Q 600 10 1260 140" fill="none" />
+            <text>
+              <textPath href="#tagline-curve" startOffset="50%" textAnchor="middle">
+                Crafted with love, delivered with care
+              </textPath>
+            </text>
+          </svg>
         </div>
       </section>
 
@@ -408,7 +434,11 @@ export default function Page() {
 
           <div className="scroll-row">
             {processSteps.map((step, i) => (
-              <div key={i} className="process-step reveal" style={{ transitionDelay: `${i * 80}ms` }}>
+              <div
+                key={i}
+                className="process-step reveal"
+                style={{ background: stepColors[i % stepColors.length], transitionDelay: `${i * 80}ms` }}
+              >
                 <span className="process-num">Step #{step.num}</span>
                 <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
                   {step.emoji}
@@ -496,16 +526,25 @@ export default function Page() {
           </div>
 
           <div className="grid grid-3">
-            {galleryItems.map((item, i) => (
-              <div key={i} className="tile-card reveal" style={{ transitionDelay: `${i * 70}ms` }}>
-                <div className="media-tile">
-                  <item.Icon size={48} color="var(--color-neutral-600)" />
+            {galleryItems.map((item, i) => {
+              const color = cardColors[i % cardColors.length];
+              return (
+                <div key={i} className="petal-card reveal" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <div className="petal-ears" aria-hidden="true">
+                    <span className="petal-ear is-left" style={{ background: color }} />
+                    <span className="petal-ear is-right" style={{ background: color }} />
+                  </div>
+                  <div className="tile-card">
+                    <div className="media-tile" style={{ background: `color-mix(in srgb, ${color} 22%, var(--color-neutral-200))` }}>
+                      <item.Icon size={48} color="var(--color-neutral-600)" />
+                    </div>
+                    <div className="gallery-label">
+                      <div className="gallery-label-title">{item.label}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="gallery-label">
-                  <div className="gallery-label-title">{item.label}</div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div style={{ marginTop: "var(--space-8)", textAlign: "center" }}>
@@ -525,7 +564,11 @@ export default function Page() {
             have won hearts across 1000+ celebrations over the years.
           </p>
 
-          <div style={{ position: "relative", maxWidth: 300, margin: "0 auto" }}>
+          <div className="petal-card" style={{ position: "relative", maxWidth: 300, margin: "22px auto 0" }}>
+            <div className="petal-ears" aria-hidden="true">
+              <span className="petal-ear is-left" style={{ background: "var(--color-purple)" }} />
+              <span className="petal-ear is-right" style={{ background: "var(--color-purple)" }} />
+            </div>
             <span className="sticker-badge" style={{ left: -10, top: 4, width: 70, height: 70, fontSize: 17 }}>
               1000+
             </span>
@@ -533,7 +576,7 @@ export default function Page() {
               5.0★
             </span>
             <div className="tile-card">
-              <div className="media-tile" style={{ height: 340, aspectRatio: "auto" }}>
+              <div className="media-tile" style={{ height: 340, aspectRatio: "auto", background: "color-mix(in srgb, var(--color-purple) 22%, var(--color-neutral-200))" }}>
                 <Flower2 size={56} color="var(--color-neutral-600)" />
               </div>
               <div className="gallery-label">
