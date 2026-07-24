@@ -47,7 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* If JS is disabled, ScrollReveal never runs to add .reveal-visible —
             this keeps hero/section content visible instead of stuck at opacity:0. */}
         <noscript>
-          <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
+          <style>{`
+            .reveal { opacity: 1 !important; translate: 0 0 !important; }
+            .reveal-stagger .word { opacity: 1 !important; transform: none !important; }
+            .media-reveal { clip-path: none !important; }
+          `}</style>
         </noscript>
         <ScrollReveal />
 

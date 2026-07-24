@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, Flower2, Gem, Heart, ScrollText, Gift } from "lucide-react";
 import { BUSINESS } from "../../config/business";
+import { Words } from "../../components/Words";
 
 export const metadata: Metadata = {
   title: "Collections",
@@ -65,10 +66,10 @@ export default function Page() {
       <div className="container">
 
         {/* Page Hero */}
-        <div className="page-hero">
+        <div className="page-hero reveal reveal-stagger">
           <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>Our Collections</span>
           <h1 className="page-title">
-            Premium Invitation <span className="accent">Collections</span>
+            <Words text="Premium Invitation" /> <span className="accent"><Words text="Collections" startIndex={2} /></span>
           </h1>
           <p className="page-sub">
             We design and print boutique invitation cards and matching stationery sets.
@@ -79,8 +80,8 @@ export default function Page() {
         {/* Collections Grid */}
         <div className="grid grid-3" style={{ marginBottom: "calc(var(--space-8) * 1.5)" }}>
           {collections.map((c, i) => (
-            <div key={i} className="tile-card">
-              <div className="media-tile">
+            <div key={i} className="tile-card reveal" style={{ transitionDelay: `${(i % 3) * 70}ms` }}>
+              <div className="media-tile media-reveal">
                 <c.Icon size={44} color="var(--color-neutral-600)" />
               </div>
               <div className="card-body-inner">
@@ -101,7 +102,7 @@ export default function Page() {
         {/* Details Section */}
         <div className="grid grid-2">
           {/* Finishes */}
-          <div className="card" style={{ padding: "var(--space-4)" }}>
+          <div className="card reveal" style={{ padding: "var(--space-4)" }}>
             <h2 style={{ fontSize: 24 }}>Premium Finishes</h2>
             <p className="text-muted" style={{ marginBottom: "var(--space-4)" }}>
               We offer a wide range of luxury finishes to elevate your invitations.
@@ -117,7 +118,7 @@ export default function Page() {
           </div>
 
           {/* Customization */}
-          <div className="stack">
+          <div className="stack reveal" style={{ transitionDelay: "80ms" }}>
             <div className="card" style={{ padding: "var(--space-4)", background: "var(--color-bg)", border: "1px solid var(--color-divider)" }}>
               <h3 style={{ fontSize: 20, color: "var(--color-accent-700)" }}>Fully Customizable</h3>
               <p style={{ fontSize: 14.5, lineHeight: 1.7 }}>

@@ -70,15 +70,15 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {open && (
-        <nav className="nav-mobile" aria-label="Mobile navigation">
+      <nav className={`nav-mobile${open ? " is-open" : ""}`} aria-label="Mobile navigation" aria-hidden={!open}>
+        <div className="nav-mobile-inner">
           {NAV_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} tabIndex={open ? undefined : -1}>
               {item.label}
             </Link>
           ))}
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

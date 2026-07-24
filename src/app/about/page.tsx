@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Leaf, Heart, Star } from "lucide-react";
 import { BUSINESS } from "../../config/business";
+import { Words } from "../../components/Words";
 
 export const metadata: Metadata = {
   title: "About",
@@ -41,10 +42,10 @@ export default function Page() {
       <div className="container">
 
         {/* Page Hero */}
-        <div className="page-hero">
+        <div className="page-hero reveal reveal-stagger">
           <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>Our Story</span>
           <h1 className="page-title">
-            About <span className="accent">{BUSINESS.name}</span>
+            <Words text="About" /> <span className="accent"><Words text={BUSINESS.name} startIndex={1} /></span>
           </h1>
           <p className="page-sub">
             A boutique invitation card studio with a passion for turning your love story
@@ -54,7 +55,7 @@ export default function Page() {
 
         {/* Story Section */}
         <div className="grid grid-2" style={{ marginBottom: "calc(var(--space-8) * 1.5)" }}>
-          <div className="card" style={{ padding: "var(--space-4)" }}>
+          <div className="card reveal" style={{ padding: "var(--space-4)" }}>
             <h2 style={{ fontSize: 24 }}>Who We Are</h2>
             <p style={{ fontSize: 14.5, lineHeight: 1.8 }}>{BUSINESS.description}</p>
             <p className="text-muted" style={{ fontSize: 14, lineHeight: 1.75 }}>
@@ -63,7 +64,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="card" style={{ padding: "var(--space-4)", background: "var(--color-bg)", border: "1px solid var(--color-divider)" }}>
+          <div className="card reveal" style={{ padding: "var(--space-4)", background: "var(--color-bg)", border: "1px solid var(--color-divider)", transitionDelay: "80ms" }}>
             <h2 style={{ fontSize: 24, color: "var(--color-accent-700)" }}>Business Details</h2>
             <dl className="definition-list">
               {details.map(({ label, value }) => (
@@ -78,13 +79,13 @@ export default function Page() {
 
         {/* Values */}
         <div style={{ marginBottom: "calc(var(--space-8) * 1.5)" }}>
-          <h2>Our <span className="accent">Values</span></h2>
+          <h2 className="reveal reveal-stagger"><Words text="Our" /> <span className="accent"><Words text="Values" startIndex={1} /></span></h2>
           <p className="section-desc" style={{ marginBottom: "var(--space-6)" }}>
             The principles that guide everything we create.
           </p>
           <div className="grid grid-3">
             {values.map((v, i) => (
-              <div key={i} className="card" style={{ padding: "var(--space-4)", gap: "var(--space-3)" }}>
+              <div key={i} className="card reveal" style={{ padding: "var(--space-4)", gap: "var(--space-3)", transitionDelay: `${i * 70}ms` }}>
                 <div className="icon-badge-lg">
                   <v.Icon size={26} />
                 </div>
@@ -99,7 +100,7 @@ export default function Page() {
 
         {/* What We Do */}
         <div className="grid grid-2">
-          <div className="card" style={{ padding: "var(--space-4)" }}>
+          <div className="card reveal" style={{ padding: "var(--space-4)" }}>
             <h3>What We Design</h3>
             <ul style={{ paddingLeft: 18, fontSize: 14.5, lineHeight: 2, margin: 0, color: "color-mix(in srgb, var(--color-text) 80%, transparent)" }}>
               <li>Designer invitation cards for weddings, engagements, birthdays, baby showers, and more</li>
@@ -110,7 +111,7 @@ export default function Page() {
             </ul>
           </div>
 
-          <div className="stack">
+          <div className="stack reveal" style={{ transitionDelay: "80ms" }}>
             <div className="card" style={{ padding: "var(--space-4)", background: "var(--color-bg)", border: "1px solid var(--color-divider)" }}>
               <h3 style={{ fontSize: 20, color: "var(--color-accent-700)" }}>For Reviewers &amp; Partners</h3>
               <ul style={{ paddingLeft: 18, fontSize: 14, lineHeight: 1.85, margin: 0, color: "color-mix(in srgb, var(--color-text) 80%, transparent)" }}>

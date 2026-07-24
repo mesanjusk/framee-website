@@ -12,6 +12,7 @@ import {
   Stamp,
 } from "lucide-react";
 import { BUSINESS } from "../../config/business";
+import { Words } from "../../components/Words";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -40,10 +41,10 @@ export default function Page() {
       <div className="container">
 
         {/* Page Hero */}
-        <div className="page-hero">
+        <div className="page-hero reveal reveal-stagger">
           <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>Our Portfolio</span>
           <h1 className="page-title">
-            Gallery of <span className="accent">Creations</span>
+            <Words text="Gallery of" /> <span className="accent"><Words text="Creations" startIndex={2} /></span>
           </h1>
           <p className="page-sub">
             A curated collection of our handcrafted wedding invitations, engagement cards,
@@ -54,8 +55,8 @@ export default function Page() {
         {/* Masonry Gallery */}
         <div className="gallery-grid" style={{ marginBottom: "var(--space-8)" }}>
           {galleryItems.map((item, i) => (
-            <div key={i} className="gallery-item">
-              <div className="media-tile" style={{ height: item.h, aspectRatio: "auto" }}>
+            <div key={i} className="gallery-item reveal" style={{ transitionDelay: `${(i % 6) * 60}ms` }}>
+              <div className="media-tile media-reveal" style={{ height: item.h, aspectRatio: "auto" }}>
                 <item.Icon size={44} color="var(--color-neutral-600)" />
               </div>
               <div className="gallery-label">
@@ -67,7 +68,7 @@ export default function Page() {
         </div>
 
         {/* CTA Card */}
-        <div className="cta-band" style={{
+        <div className="cta-band reveal" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           flexWrap: "wrap", gap: "var(--space-6)"
         }}>
