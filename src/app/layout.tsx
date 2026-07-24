@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="site-footer">
           <div className="container">
             {/* Brand + quick-contact chips */}
-            <Link href="/" className="brand-link" aria-label={BUSINESS.name} style={{ marginBottom: "var(--space-4)" }}>
+            <Link href="/" className="brand-link" aria-label={BUSINESS.name} style={{ marginBottom: "var(--space-3)" }}>
               <span className="brand-mark"><BrandMark color="#fff" /></span>
               <span className="brand-name">SK Digital</span>
               <span className="brand-tag">CARDS<br />STUDIO</span>
