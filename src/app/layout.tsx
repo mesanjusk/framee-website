@@ -6,6 +6,11 @@ import { BUSINESS } from "../config/business";
 import { BrandMark } from "../components/BrandMark";
 import { SiteHeader } from "../components/SiteHeader";
 import { ScrollReveal } from "../components/ScrollReveal";
+import { ScrollFX } from "../components/motion/ScrollFX";
+import { PageLoadSplash } from "../components/motion/PageLoadSplash";
+import { CustomCursor } from "../components/motion/CustomCursor";
+import { PageTransition } from "../components/motion/PageTransition";
+import { Magnetic } from "../components/motion/Magnetic";
 
 export const metadata: Metadata = {
   title: {
@@ -54,12 +59,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}</style>
         </noscript>
         <ScrollReveal />
+        <ScrollFX />
+        <PageLoadSplash />
+        <CustomCursor />
 
         {/* ===== HEADER ===== */}
         <SiteHeader />
 
         {/* ===== MAIN ===== */}
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
 
         {/* ===== FOOTER ===== */}
         <footer className="site-footer">
@@ -136,10 +146,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     placeholder="Email Address"
                     aria-label="Email address for newsletter"
                   />
-                  <button className="btn-split" type="button" style={{ width: "fit-content" }}>
-                    <span className="btn-split-label">Subscribe</span>
-                    <span className="btn-split-arrow">→</span>
-                  </button>
+                  <Magnetic>
+                    <button className="btn-split" type="button" style={{ width: "fit-content" }}>
+                      <span className="btn-split-label">Subscribe</span>
+                      <span className="btn-split-arrow">→</span>
+                    </button>
+                  </Magnetic>
                 </div>
               </div>
             </div>

@@ -15,6 +15,11 @@ import {
 import { BUSINESS } from "../config/business";
 import { BrandMark } from "../components/BrandMark";
 import { Words } from "../components/Words";
+import { ScrollRow } from "../components/motion/ScrollRow";
+import { Magnetic } from "../components/motion/Magnetic";
+import { CountUp } from "../components/motion/CountUp";
+import { Marquee } from "../components/motion/Marquee";
+import { SectionSeam } from "../components/motion/SectionSeam";
 
 /* ====================================================
    DATA
@@ -209,6 +214,14 @@ const trustPoints = [
   "1000+ Happy Couples",
 ];
 
+const marqueeItems = [
+  "Handcrafted Invitations",
+  "Free Design Consultation",
+  "Pan-India Delivery",
+  "1000+ Happy Couples",
+  "5.0★ Rated Studio",
+];
+
 /* ====================================================
    PAGE COMPONENT
    ==================================================== */
@@ -239,10 +252,12 @@ export default function Page() {
 
               <div className="hero-ctas reveal" style={{ transitionDelay: "270ms" }}>
                 {BUSINESS.whatsapp && (
-                  <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
-                    <span className="btn-split-label">Get a free quote</span>
-                    <span className="btn-split-arrow">→</span>
-                  </a>
+                  <Magnetic>
+                    <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
+                      <span className="btn-split-label">Get a free quote</span>
+                      <span className="btn-split-arrow">→</span>
+                    </a>
+                  </Magnetic>
                 )}
                 <Link className="btn btn-secondary" href="/services">
                   Explore Collection
@@ -251,36 +266,39 @@ export default function Page() {
 
               <div className="hero-stats reveal" style={{ transitionDelay: "360ms" }}>
                 <div>
-                  <div className="stat-num">1000+</div>
+                  <div className="stat-num"><CountUp value="1000+" /></div>
                   <div className="stat-label">Happy Couples</div>
                 </div>
                 <div>
-                  <div className="stat-num">5+</div>
+                  <div className="stat-num"><CountUp value="5+" /></div>
                   <div className="stat-label">Years Experience</div>
                 </div>
                 <div>
-                  <div className="stat-num">5.0★</div>
+                  <div className="stat-num"><CountUp value="5.0★" /></div>
                   <div className="stat-label">Avg Rating</div>
                 </div>
               </div>
             </div>
 
-            <div className="hero-panel reveal" style={{ transitionDelay: "150ms" }}>
-              <Flower2 size={48} color="var(--color-accent-700)" />
-              <div>
-                <div className="card-title">Your Perfect Card</div>
-                <p className="card-body" style={{ margin: 0 }}>
-                  Crafted with care for your most special day
-                </p>
-              </div>
-              <div className="hstack">
-                <span className="tag tag-accent">★ Bestseller</span>
-                <span className="tag tag-neutral">Personalize</span>
+            <div className="hero-tilt-wrap">
+              <div className="hero-panel reveal" style={{ transitionDelay: "150ms" }}>
+                <Flower2 size={48} color="var(--color-accent-700)" />
+                <div>
+                  <div className="card-title">Your Perfect Card</div>
+                  <p className="card-body" style={{ margin: 0 }}>
+                    Crafted with care for your most special day
+                  </p>
+                </div>
+                <div className="hstack">
+                  <span className="tag tag-accent">★ Bestseller</span>
+                  <span className="tag tag-neutral">Personalize</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <SectionSeam from="var(--color-yellow)" to="var(--color-bg)" />
 
       {/* ============================================================
           OUR COLLECTIONS
@@ -294,7 +312,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="scroll-row">
+          <ScrollRow count={4}>
             {products.slice(0, 4).map((p, i) => {
               const color = cardColors[i % cardColors.length];
               return (
@@ -333,7 +351,7 @@ export default function Page() {
                 </article>
               );
             })}
-          </div>
+          </ScrollRow>
 
           <div style={{ marginTop: "var(--space-8)", textAlign: "center" }}>
             <Link className="btn btn-primary" href="/services">
@@ -377,6 +395,7 @@ export default function Page() {
           <BrandMark color="#fff" />
         </div>
       </section>
+      <SectionSeam from="var(--color-pink-hot)" to="var(--color-yellow)" />
 
       {/* ============================================================
           WHY SK DIGITAL — floating bubble labels over a blob backdrop
@@ -423,41 +442,79 @@ export default function Page() {
       </section>
 
       {/* ============================================================
-          HOW IT WORKS
+          HOW IT WORKS — pinned, scroll-scrubbed on desktop (see
+          ScrollFX.tsx); a plain horizontal scroll row on mobile, where
+          pinning a 400vh section risks getting janky (see the audit's
+          performance notes). Both versions render the same four steps
+          from the same data — only the presentation differs.
           ============================================================ */}
-      <section className="section" style={{ background: "var(--color-lilac)" }}>
-        <div className="container">
+      <section className="section" style={{ background: "var(--color-lilac)", padding: 0 }} id="how-it-works">
+        <div className="container" style={{ paddingTop: "calc(var(--space-8) * 2)" }}>
           <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
             <h2><Words text="How it works" /></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               A simple, seamless process from your idea to your doorstep in just four steps.
             </p>
           </div>
+        </div>
 
-          <div className="scroll-row">
-            {processSteps.map((step, i) => (
-              <div
-                key={i}
-                className="process-step reveal"
-                style={{ background: stepColors[i % stepColors.length], transitionDelay: `${i * 80}ms` }}
-              >
-                <span className="process-num">Step #{step.num}</span>
-                <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
-                  {step.emoji}
-                </div>
-                <div className="card-title" style={{ fontSize: 22, color: "var(--color-text)" }}>{step.title}</div>
-                <p className="card-body" style={{ opacity: 1, color: "var(--color-purple-ink)" }}>
-                  {step.desc}
+        {/* — desktop: pinned sequence — */}
+        <div className="pin-steps-desktop">
+          <div className="pin-steps" style={{ height: `${processSteps.length * 100}vh` }}>
+            <div className="pin-steps-sticky">
+              <div className="pin-steps-stack">
+                {processSteps.map((step, i) => (
+                  <div
+                    key={i}
+                    className={`process-step pin-step${i === 0 ? " is-active" : ""}`}
+                    style={{ background: stepColors[i % stepColors.length] }}
+                  >
+                    <span className="process-num">Step #{step.num}</span>
+                    <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
+                      {step.emoji}
+                    </div>
+                    <div className="card-title" style={{ fontSize: 22, color: "var(--color-text)" }}>{step.title}</div>
+                    <p className="card-body" style={{ opacity: 1, color: "var(--color-purple-ink)" }}>
+                      {step.desc}
+                    </p>
+                  </div>
+                ))}
+                <p className="script-tag pin-steps-caption" style={{ color: "var(--color-purple-deep)" }}>
+                  Consider us your personal invitation designers
                 </p>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
 
-          <p className="script-tag reveal" style={{ display: "block", textAlign: "center", marginTop: "var(--space-6)", color: "var(--color-purple-deep)" }}>
-            Consider us your personal invitation designers
-          </p>
+        {/* — mobile: plain horizontal row — */}
+        <div className="pin-steps-mobile">
+          <div className="container">
+            <ScrollRow count={processSteps.length}>
+              {processSteps.map((step, i) => (
+                <div
+                  key={i}
+                  className="process-step reveal"
+                  style={{ background: stepColors[i % stepColors.length], transitionDelay: `${i * 80}ms` }}
+                >
+                  <span className="process-num">Step #{step.num}</span>
+                  <div style={{ fontSize: 72, textAlign: "center", margin: "var(--space-2) 0 var(--space-3)" }}>
+                    {step.emoji}
+                  </div>
+                  <div className="card-title" style={{ fontSize: 22, color: "var(--color-text)" }}>{step.title}</div>
+                  <p className="card-body" style={{ opacity: 1, color: "var(--color-purple-ink)" }}>
+                    {step.desc}
+                  </p>
+                </div>
+              ))}
+            </ScrollRow>
+            <p className="script-tag reveal" style={{ display: "block", textAlign: "center", marginTop: "var(--space-6)", color: "var(--color-purple-deep)" }}>
+              Consider us your personal invitation designers
+            </p>
+          </div>
         </div>
       </section>
+      <SectionSeam from="var(--color-lilac)" to="var(--color-surface)" />
 
       {/* ============================================================
           TESTIMONIALS
@@ -471,7 +528,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="grid grid-3">
+          <div className="testimonial-grid">
             {testimonials.map((t, i) => (
               <div key={i} className="testimonial-card reveal" style={{ background: "#fff", transitionDelay: `${i * 80}ms` }}>
                 <p className="testimonial-text">&ldquo;{t.text}&rdquo;</p>
@@ -571,10 +628,16 @@ export default function Page() {
               <span className="petal-ear is-left" style={{ background: "var(--color-purple)" }} />
               <span className="petal-ear is-right" style={{ background: "var(--color-purple)" }} />
             </div>
-            <span className="sticker-badge" style={{ left: -10, top: 4, width: 70, height: 70, fontSize: 17 }}>
+            {/* confetti burst — springs out once, the first time this card is revealed */}
+            <span className="confetti-bit" aria-hidden="true" style={{ left: "12%", top: "-6%", background: "var(--color-pink-hot)", translate: "-26px -18px", transitionDelay: "80ms" }} />
+            <span className="confetti-bit" aria-hidden="true" style={{ left: "50%", top: "-10%", background: "var(--color-yellow-deep)", translate: "6px -30px", transitionDelay: "160ms" }} />
+            <span className="confetti-bit" aria-hidden="true" style={{ right: "10%", top: "-4%", background: "var(--color-green)", translate: "24px -14px", transitionDelay: "220ms" }} />
+            <span className="confetti-bit" aria-hidden="true" style={{ left: "-4%", top: "40%", background: "var(--color-teal)", translate: "-20px 8px", transitionDelay: "300ms" }} />
+            <span className="confetti-bit" aria-hidden="true" style={{ right: "-4%", top: "60%", background: "var(--color-purple-deep)", translate: "20px 12px", transitionDelay: "380ms" }} />
+            <span className="sticker-badge sticker-pop" style={{ left: -10, top: 4, width: 70, height: 70, fontSize: 17, transitionDelay: "120ms" }}>
               1000+
             </span>
-            <span className="sticker-badge" style={{ right: -10, top: 46, width: 78, height: 78, fontSize: 22 }}>
+            <span className="sticker-badge sticker-pop" style={{ right: -10, top: 46, width: 78, height: 78, fontSize: 22, transitionDelay: "220ms" }}>
               5.0★
             </span>
             <div className="tile-card">
@@ -588,6 +651,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <Marquee items={marqueeItems} />
 
       {/* ============================================================
           SK DIGITAL EXCLUSIVE — dark poster CTA
@@ -604,10 +669,12 @@ export default function Page() {
               across India. This is our signature limited edition.
             </p>
             {BUSINESS.whatsapp && (
-              <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
-                <span className="btn-split-label">Get a quote!</span>
-                <span className="btn-split-arrow">→</span>
-              </a>
+              <Magnetic>
+                <a className="btn-split" href={BUSINESS.whatsapp} target="_blank" rel="noreferrer">
+                  <span className="btn-split-label">Get a quote!</span>
+                  <span className="btn-split-arrow">→</span>
+                </a>
+              </Magnetic>
             )}
           </div>
         </div>

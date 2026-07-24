@@ -695,3 +695,226 @@ button { font-family: inherit; }
   .section { padding: var(--space-8) 0; }
   .cta-band { padding: var(--space-6) var(--space-4); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Motion system, part 2 — page-load splash, scroll-scrubbed set pieces,
+   marquee, cursor, magnetic buttons, count-up, section seams. Built on the
+   same primitives as the reveal system above (translate/scale/rotate kept
+   as separate properties so nothing here ever fights a hover state).
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* — page-load splash — brand mark pulses, then a curved wipe peels away to
+   reveal the page. See PageLoadSplash.tsx. Removed from the DOM once done,
+   so it costs nothing after first paint. */
+.page-splash {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-navy);
+  opacity: 1; transition: opacity 550ms ease 150ms;
+}
+.page-splash-mark {
+  width: 72px; height: 72px; color: #fff;
+  scale: 0.85; opacity: 0.75;
+  animation: splash-pulse 850ms cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+.page-splash-mark svg { width: 100%; height: 100%; }
+@keyframes splash-pulse {
+  from { scale: 0.85; opacity: 0.75; }
+  to { scale: 1.08; opacity: 1; }
+}
+.page-splash-wipe {
+  position: absolute; inset: -25% -25%; z-index: -1;
+  background: var(--color-yellow);
+  clip-path: ellipse(0% 0% at 50% 55%);
+  transition: clip-path 700ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.page-splash.is-leaving { opacity: 0; }
+.page-splash.is-leaving .page-splash-wipe { clip-path: ellipse(120% 120% at 50% 55%); }
+.page-splash.is-leaving .page-splash-mark { animation: none; scale: 1.15; opacity: 0; transition: scale 400ms ease, opacity 300ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .page-splash { display: none; }
+}
+
+/* — marquee — infinite CSS-only ticker, no JS loop. Content is duplicated
+   once in the component so the 50%-translate loop point is seamless. */
+.marquee-band {
+  background: var(--color-ink); color: #fff;
+  rotate: -1.6deg; margin: calc(var(--space-8) * 1.2) calc(var(--space-6) * -1.4);
+  box-shadow: var(--shadow-lg); overflow: hidden; position: relative; z-index: 2;
+}
+.marquee { overflow: hidden; white-space: nowrap; padding: 14px 0; }
+.marquee-track { display: inline-flex; width: max-content; animation: marquee-scroll 26s linear infinite; }
+@keyframes marquee-scroll { from { translate: 0 0; } to { translate: -50% 0; } }
+.marquee-item {
+  font-family: var(--font-heading); font-weight: 800; font-size: 19px;
+  display: inline-flex; align-items: center; gap: var(--space-6); padding-right: var(--space-6);
+  color: inherit; white-space: nowrap;
+}
+.marquee-item::after { content: "✦"; opacity: 0.55; margin-left: var(--space-6); color: var(--color-accent-2-400); }
+@media (max-width: 600px) { .marquee-band { margin-inline: calc(var(--space-4) * -1.6); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* — custom cursor — desktop, fine-pointer only. The component adds
+   `.custom-cursor-active` to <html> only once it has actually mounted, so a
+   JS failure never leaves a visitor with no cursor at all. */
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--color-accent); pointer-events: none; z-index: 2100;
+  translate: -50% -50%; opacity: 0;
+  transition: scale 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease, background 200ms ease;
+  mix-blend-mode: difference;
+}
+html.custom-cursor-active { cursor: none; }
+html.custom-cursor-active a, html.custom-cursor-active button { cursor: none; }
+.cursor-dot.is-visible { opacity: 1; }
+.cursor-dot.is-hovering { scale: 2.4; background: #fff; }
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-dot { display: none; }
+  html.custom-cursor-active { cursor: auto; }
+}
+
+/* — magnetic buttons — JS (see Magnetic.tsx) writes `translate` inline on
+   pointermove; this just gives it somewhere soft to land back to. */
+.magnetic { display: inline-flex; transition: translate 350ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* — count-up numbers — purely a numeral-alignment nicety while the digits
+   are animating (see CountUp.tsx). */
+.count-up { font-variant-numeric: tabular-nums; }
+
+/* — page transition — fade + rise on every route entry, keyed by pathname
+   in PageTransition.tsx. Enter-only (no exit choreography) by design — an
+   exit animation needs a mount-lifecycle library we didn't add.
+   Deliberately a `transition` off an `.is-entering` modifier, not a CSS
+   `animation` with `fill-mode`: an animation's fill-mode leaves `translate`
+   permanently non-`none` even once settled at `0 0`, and *any* non-`none`
+   translate/transform/scale/rotate value creates a new containing block —
+   silently breaking `position: fixed` for every descendant (this is what
+   broke the pinned "How it works" section during development: GSAP's pin
+   landed inside that accidental containing block instead of the viewport).
+   Removing `.is-entering` after mount lets `translate` fall back to its
+   true initial value of `none`, so nothing downstream is ever contained. */
+.page-transition {
+  opacity: 1;
+  transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1), translate 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page-transition.is-entering { opacity: 0; translate: 0 14px; }
+@media (prefers-reduced-motion: reduce) { .page-transition { transition: none; } }
+
+/* — section seam — a short gradient blend dropped between two hard-cut
+   section backgrounds so the join reads as a bleed rather than a stripe. */
+.section-seam { height: 56px; }
+@media (max-width: 600px) { .section-seam { height: 34px; } }
+
+/* — sticker spring entrance — overshoot/settle, keyed off the same
+   ancestor `.reveal-visible` state as `.media-reveal` above. */
+.sticker-pop {
+  scale: 0; rotate: -28deg;
+  transition: scale 640ms cubic-bezier(0.34, 1.56, 0.64, 1), rotate 640ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reveal.reveal-visible .sticker-pop { scale: 1; rotate: 0deg; }
+
+/* — confetti burst — a handful of small tinted chips that spring outward
+   once, the first time their section is revealed. */
+.confetti-bit {
+  position: absolute; width: 9px; height: 9px; border-radius: 3px;
+  scale: 0; opacity: 0; translate: 0 0;
+  transition: scale 560ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 260ms ease, translate 560ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.reveal.reveal-visible .confetti-bit { scale: 1; opacity: 1; }
+
+/* — ambient blob breathing — slow opacity/scale drift on the decorative
+   backdrops so a static section doesn't feel completely inert. */
+@keyframes blob-breathe { 0%, 100% { opacity: 0.4; scale: 1; } 50% { opacity: 0.56; scale: 1.08; } }
+.organic-bg::before { animation: blob-breathe 9s ease-in-out infinite; }
+.organic-bg::after { animation: blob-breathe 11s ease-in-out infinite 1.4s; }
+@media (prefers-reduced-motion: reduce) { .organic-bg::before, .organic-bg::after { animation: none; } }
+
+/* — scroll parallax wiring — ScrollFX.tsx writes these custom properties
+   on scroll; pseudo-elements can't be targeted by JS directly, so this is
+   the standard workaround (var() read on a real, JS-free CSS property). */
+.hero::before { translate: 0 calc(var(--parallax-a, 0) * 1px); }
+.hero::after { translate: 0 calc(var(--parallax-b, 0) * 1px); }
+.curved-banner svg { translate: calc(var(--curve-drift, 0) * 1px) 0; }
+
+/* — hero 3D tilt — a lightweight, honest stand-in for the reference's
+   camera-orbiting 3D box: no new 3D asset, just a scroll-driven tilt on
+   the existing hero panel. `.reveal` already moved to `translate` (see
+   top of file) specifically so it never fights this `transform`. */
+.hero-tilt-wrap { perspective: 1400px; }
+.hero-panel {
+  transform: rotateY(calc(var(--tilt-x, 0) * 1deg)) rotateX(calc(var(--tilt-y, 0) * -1deg));
+}
+@media (prefers-reduced-motion: reduce) { .hero-panel { transform: none; } }
+
+/* — header scroll behavior — shrinks slightly and hides on scroll-down,
+   reappears on scroll-up. Classes toggled from SiteHeader.tsx. */
+.site-header { transition: translate 260ms cubic-bezier(0.16, 1, 0.3, 1), padding 200ms ease; }
+.site-header.is-hidden { translate: 0 -100%; }
+.site-header.is-shrunk .nav { padding-top: 8px; padding-bottom: 8px; }
+@media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
+
+/* — carousel pagination dots — companion to ScrollRow.tsx. Desktop drops
+   the row back to a static wrapped grid (see .scroll-row above), so the
+   dots — which only make sense while something is actually scrolling —
+   hide there too. */
+.scroll-dots { display: flex; justify-content: center; gap: 8px; margin-top: var(--space-4); }
+@media (min-width: 980px) { .scroll-dots { display: none; } }
+.scroll-dot {
+  width: 7px; height: 7px; border-radius: 50%; padding: 0; border: none; cursor: pointer;
+  background: color-mix(in srgb, var(--color-text) 25%, transparent);
+  transition: background 200ms ease, scale 200ms ease;
+}
+.scroll-dot.is-active { background: var(--color-accent); scale: 1.35; }
+
+/* — testimonials, responsive — grid on desktop (unchanged), a snap-scroll
+   row on mobile so more than three testimonials are browsable one-handed,
+   matching the reference's swipeable card pattern. */
+.testimonial-grid { display: flex; flex-direction: column; gap: var(--space-6); }
+@media (max-width: 719px) {
+  .testimonial-grid {
+    display: flex; flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: var(--space-4); margin: 0 calc(var(--space-4) * -1); padding: 4px var(--space-4) var(--space-3);
+    scrollbar-width: thin;
+  }
+  .testimonial-grid > * { scroll-snap-align: center; flex: 0 0 84%; }
+}
+@media (min-width: 720px) { .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); } }
+
+/* — pinned, scroll-scrubbed "How it works" — desktop only (see the
+   `matchMedia` gate in ScrollFX.tsx); a 400vh-tall track holds a
+   `position: sticky` viewport, and the active step panel is swapped by
+   scroll progress instead of scroll position. Mobile keeps the plain
+   horizontal `.scroll-row` version — pinning a 400vh section is exactly
+   the kind of thing that gets janky on mobile Safari (see the audit's
+   performance notes), so it isn't worth forcing there. */
+.pin-steps-desktop { display: none; }
+.pin-steps-mobile { display: block; padding: var(--space-4) 0 calc(var(--space-8) * 2); }
+@media (min-width: 768px) {
+  .pin-steps-desktop { display: block; padding-bottom: calc(var(--space-8) * 1.5); }
+  .pin-steps-mobile { display: none; }
+}
+.pin-steps { position: relative; }
+.pin-steps-sticky {
+  /* Pinned via GSAP ScrollTrigger (see ScrollFX.tsx), not CSS `position:
+     sticky` — GSAP's pin manages its own spacer element and handles
+     resize/refresh, which a plain sticky position can't do for a
+     progress-driven, multi-step sequence like this one. */
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.pin-steps-stack { position: relative; width: 100%; max-width: 420px; margin: 0 auto; min-height: 420px; }
+.pin-step {
+  position: absolute; inset: 0;
+  opacity: 0; translate: 0 28px; scale: 0.97;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1), translate 450ms cubic-bezier(0.16, 1, 0.3, 1), scale 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.pin-step.is-active { opacity: 1; translate: 0 0; scale: 1; pointer-events: auto; }
+.pin-steps-caption {
+  position: absolute; left: 0; right: 0; bottom: -48px; text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pin-step { transition: none; }
+}
