@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 import { BUSINESS } from "../../config/business";
+import { Words } from "../../components/Words";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -62,10 +63,10 @@ export default function Page() {
       <div className="container">
 
         {/* Page Hero */}
-        <div className="page-hero">
+        <div className="page-hero reveal reveal-stagger">
           <span className="tag tag-outline" style={{ marginBottom: "var(--space-3)" }}>Get in Touch</span>
           <h1 className="page-title">
-            Let&apos;s Start <span className="accent">Designing Together</span>
+            <Words text="Let's Start" /> <span className="accent"><Words text="Designing Together" startIndex={2} /></span>
           </h1>
           <p className="page-sub">
             Ready to create your dream invitations? Share your details and we&apos;ll get back to you
@@ -77,8 +78,8 @@ export default function Page() {
 
           {/* Contact Info */}
           <div className="stack">
-            {contactItems.map(({ Icon, label, value, href, note }) => (
-              <div key={label} className="contact-row">
+            {contactItems.map(({ Icon, label, value, href, note }, i) => (
+              <div key={label} className="contact-row reveal" style={{ transitionDelay: `${i * 60}ms` }}>
                 <div className="contact-icon">
                   <Icon size={20} />
                 </div>
@@ -105,7 +106,7 @@ export default function Page() {
           </div>
 
           {/* Quote Checklist */}
-          <div className="stack">
+          <div className="stack reveal" style={{ transitionDelay: "80ms" }}>
             <div className="card" style={{ padding: "var(--space-4)" }}>
               <h2 style={{ fontSize: 22 }}>Quote Checklist</h2>
               <p className="text-muted" style={{ fontSize: 14, marginBottom: "var(--space-4)", lineHeight: 1.6 }}>

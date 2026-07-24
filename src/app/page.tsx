@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { BUSINESS } from "../config/business";
 import { BrandMark } from "../components/BrandMark";
+import { Words } from "../components/Words";
 
 /* ====================================================
    DATA
@@ -226,8 +227,9 @@ export default function Page() {
                 Shipping across India
               </p>
 
-              <h1 className="hero-title reveal" style={{ transitionDelay: "90ms" }}>
-                Invitations worth <span className="accent">celebrating</span>
+              <h1 className="hero-title reveal reveal-stagger" style={{ transitionDelay: "90ms" }}>
+                <Words text="Invitations worth" />{" "}
+                <span className="accent"><Words text="celebrating" startIndex={2} /></span>
               </h1>
 
               <p className="hero-sub reveal" style={{ transitionDelay: "180ms" }}>
@@ -285,8 +287,8 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-flush">
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
-            <h2>Our Collections</h2>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2><Words text="Our Collections" /></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Each card is crafted with the finest materials and meticulous attention to every detail.
             </p>
@@ -305,7 +307,7 @@ export default function Page() {
                     <span className="petal-ear is-left" style={{ background: color }} />
                     <span className="petal-ear is-right" style={{ background: color }} />
                   </div>
-                  <div className="media-tile" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
+                  <div className="media-tile media-reveal" style={{ background: "rgba(255,255,255,0.35)", aspectRatio: "4 / 3.4" }}>
                     <p.Icon size={56} color="rgba(20,20,20,0.55)" />
                     <div className="media-tile-cta">
                       <Link href="/services" className="btn btn-primary" style={{ padding: "8px 16px", fontSize: 12 }}>
@@ -346,8 +348,8 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-6)", textAlign: "center" }}>
-            <h2>Choose from</h2>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-6)", textAlign: "center" }}>
+            <h2><Words text="Choose from" /></h2>
             <p className="script-tag" style={{ display: "block", color: "var(--color-purple-deep)" }}>
               We&rsquo;ve got a card for every kind of celebration
             </p>
@@ -370,7 +372,7 @@ export default function Page() {
           BANNER — "Cards for every event"
           ============================================================ */}
       <section className="banner-strip" style={{ background: "var(--color-pink-hot)", color: "#fff" }}>
-        <h2 className="reveal">Cards for every event</h2>
+        <h2 className="reveal reveal-stagger"><Words text="Cards for every event" /></h2>
         <div className="banner-ring reveal" style={{ transitionDelay: "120ms" }}>
           <BrandMark color="#fff" />
         </div>
@@ -381,9 +383,9 @@ export default function Page() {
           ============================================================ */}
       <section className="section organic-bg" style={{ background: "var(--color-yellow)" }}>
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center", maxWidth: 560 }}>
             <p className="script-tag" style={{ fontSize: 32, color: "var(--color-purple-ink)" }}>Why SK Digital?</p>
-            <h2>Crafted with <span className="accent">Care</span></h2>
+            <h2><Words text="Crafted with" /> <span className="accent"><Words text="Care" startIndex={2} /></span></h2>
           </div>
 
           <div className="floating-labels">
@@ -425,8 +427,8 @@ export default function Page() {
           ============================================================ */}
       <section className="section" style={{ background: "var(--color-lilac)" }}>
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
-            <h2>How it works</h2>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2><Words text="How it works" /></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               A simple, seamless process from your idea to your doorstep in just four steps.
             </p>
@@ -462,8 +464,8 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
-            <h2>Words from <span className="accent">Real Couples</span></h2>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2><Words text="Words from" /> <span className="accent"><Words text="Real Couples" startIndex={2} /></span></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Over a thousand couples have trusted us with the most important invitations of their lives.
             </p>
@@ -491,7 +493,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-flush">
         <div className="container" style={{ maxWidth: 720 }}>
-          <h2 className="reveal" style={{ textAlign: "center", marginBottom: "var(--space-6)" }}>Common questions</h2>
+          <h2 className="reveal reveal-stagger" style={{ textAlign: "center", marginBottom: "var(--space-6)" }}><Words text="Common questions" /></h2>
           <div className="stack" style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}>
             {faqs.map((item, i) => (
               <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 60}ms` }}>
@@ -517,8 +519,8 @@ export default function Page() {
           ============================================================ */}
       <section className="section section-surface">
         <div className="container">
-          <div className="section-head reveal" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
-            <h2>Made <span className="accent">Just for You</span></h2>
+          <div className="section-head reveal reveal-stagger" style={{ margin: "0 auto var(--space-8)", textAlign: "center" }}>
+            <h2><Words text="Made" /> <span className="accent"><Words text="Just for You" startIndex={1} /></span></h2>
             <p className="section-desc" style={{ margin: "0 auto" }}>
               Share your theme, colours and wording, and we&apos;ll craft an invitation that&apos;s entirely yours.
               Free consultation, no obligation — just tell us your vision and we&apos;ll take it from there.
@@ -535,7 +537,7 @@ export default function Page() {
                     <span className="petal-ear is-right" style={{ background: color }} />
                   </div>
                   <div className="tile-card">
-                    <div className="media-tile" style={{ background: `color-mix(in srgb, ${color} 22%, var(--color-neutral-200))` }}>
+                    <div className="media-tile media-reveal" style={{ background: `color-mix(in srgb, ${color} 22%, var(--color-neutral-200))` }}>
                       <item.Icon size={48} color="var(--color-neutral-600)" />
                     </div>
                     <div className="gallery-label">
@@ -557,8 +559,8 @@ export default function Page() {
           CLIENT FAVOURITES
           ============================================================ */}
       <section className="section" style={{ background: "var(--color-yellow)", textAlign: "center" }}>
-        <div className="container reveal" style={{ maxWidth: 520 }}>
-          <h2>Client Favourites</h2>
+        <div className="container reveal reveal-stagger" style={{ maxWidth: 520 }}>
+          <h2><Words text="Client Favourites" /></h2>
           <p className="section-desc" style={{ margin: "0 auto var(--space-6)" }}>
             Every season our couples pick the designs they love most. These bestselling invitations
             have won hearts across 1000+ celebrations over the years.
@@ -576,7 +578,7 @@ export default function Page() {
               5.0★
             </span>
             <div className="tile-card">
-              <div className="media-tile" style={{ height: 340, aspectRatio: "auto", background: "color-mix(in srgb, var(--color-purple) 22%, var(--color-neutral-200))" }}>
+              <div className="media-tile media-reveal" style={{ height: 340, aspectRatio: "auto", background: "color-mix(in srgb, var(--color-purple) 22%, var(--color-neutral-200))" }}>
                 <Flower2 size={56} color="var(--color-neutral-600)" />
               </div>
               <div className="gallery-label">
@@ -592,7 +594,7 @@ export default function Page() {
           ============================================================ */}
       <section className="section">
         <div className="container">
-          <h2 className="reveal" style={{ marginBottom: "var(--space-6)" }}>SK Digital Exclusive</h2>
+          <h2 className="reveal reveal-stagger" style={{ marginBottom: "var(--space-6)" }}><Words text="SK Digital Exclusive" /></h2>
           <div className="cta-band reveal" style={{ transitionDelay: "100ms" }}>
             <div className="media-tile" style={{ background: "rgba(255,255,255,0.08)", aspectRatio: "auto", height: 260, marginBottom: "var(--space-6)" }}>
               <Gem size={48} color="rgba(255,255,255,0.5)" />
